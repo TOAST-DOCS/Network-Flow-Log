@@ -160,7 +160,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시. <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다. |
 
 <details>
   <summary>예시</summary>
@@ -273,7 +273,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>
@@ -364,7 +364,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>
@@ -529,3 +529,19 @@ X-Auth-Token: {tokenId}
 ```
 
 </details>
+
+
+## 에러 타입
+
+플로우 로그를 사용하려는 환경이 올바르게 설정되지 않았다면 에러가 발생할 수 있습니다. 이 경우에는 flowlog_logger.error_type를 조회하여 에러의 이유를 확인할 수 있습니다.
+
+플로우 로그 로거의 상태와 에러 타입은 다음과 같이 존재합니다.
+
+| 플로우 로그 로거 상태 | error_type | 에러 이유 | 확인 필요 내용 |
+| :-----------: | :--------------: | :-----------------: | :---: |
+| ACTIVE | - | - | - | - |
+| BUILD | - | - | - | - |
+| ERROR | AuthenticationSystemError | 인증 시스템에 문제가 있습니다. 고객 센터에 문의해주세요. | 플로우 로그 시스템 계정이 Keystone 서버로부터 토큰 발급을 받지 못한 경우입니다. |
+|  | OBSConfigurationError | OBS URL 및 접근 정책을 확인하세요. | 사용자의 저장소로 더미 데이터를 보냈으나, 권한이 없어 403 에러를 받은 경우입니다. 컨테이너 URL 및 접근 정책을 확인하시길 바랍니다. |
+|  | OBSServiceNotAvailableError | OBS 서비스가 동작하지 않습니다. 고객 센터에 문의해주세요. | 사용자의 저장소로 더미 데이터를 보냈으나, 401과 403 이외의 에러를 받는 경우입니다. |
+

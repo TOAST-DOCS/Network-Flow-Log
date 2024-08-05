@@ -322,6 +322,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
+| flowlogLoggerId | URL | UUID | O | 플로우 로그 로거 ID |
 | flowlog\_logger | Body | Object | O | 플로우 로그 로거 정보 객체 |
 | flowlog\_logger.name | Body | String | O | 플로우 로그 로거 이름 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean |  | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. 기본 값은 `true`. |
@@ -500,7 +501,7 @@ X-Auth-Token: {tokenId}
 ### 플로우 로그 로깅 포트 보기
 
 ```
-GET /v2.0/flowlog-logging-ports/{flowlog-loggeing-port-uuid}
+GET /v2.0/flowlog-logging-ports/{flowlogLoggingPortId}
 X-Auth-Token: {tokenId} 
 ```
 
@@ -511,7 +512,7 @@ X-Auth-Token: {tokenId}
 | 이름 | 종류 | 형식 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | 토큰 ID |
-| flowlogLoggerId | URL | UUID | O | 플로우 로그 로거 ID |
+| flowlogLoggingPortId | URL | UUID | O | 플로우 로그 로깅 포트 ID |
 
 #### 응답
 
@@ -529,7 +530,18 @@ X-Auth-Token: {tokenId}
   <summary>예시</summary>
 
 ```json
-{"flowlog_logging_port": {"network_id": "6d0cecc1-87e5-4f3f-bd6b-9661faaadf8c", "logger_id": "5accbc74-ce1a-49f8-a7f7-4b22ccca00c8", "port_id": "6071be33-0ca5-4f1e-bee1-6538499920d9", "id": "069f988a-0129-4345-8b32-19c6f191ba79", "tenant_id": "e873d250f2ca40b78e2c12cfbaaeb740", "project_id": "e873d250f2ca40b78e2c12cfbaaeb740"}}
+{
+    "flowlog_logging_port": {
+        "network_id": "0afbf332-3432-450f-a25a-3cfa56b886d9",
+        "tenant_id": "419a823563124dc5b5627f5e79db8174",
+        "created_at": "2024-07-29 09:21:09",
+        "updated_at": "2024-07-29 09:21:09",
+        "logger_id": "3e84619a-1e49-4b19-b353-a15f7d278f94",
+        "project_id": "419a823563124dc5b5627f5e79db8174",
+        "port_id": "12799b52-0c81-4820-8fe6-b4963989ffe1",
+        "id": "6e97b87a-21ac-42d2-afc7-6d180ba93417"
+    }
+}
 ```
 
 </details>

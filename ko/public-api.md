@@ -425,6 +425,7 @@ X-Auth-Token: {tokenId}
 <br>
 <br>
 
+
 ## 플로우 로그 로깅 포트
 
 * 플로우 로그 로깅 포트는 플로우 로그 로거가 실질적으로 캡쳐하는 포트들을 의미합니다. 플로우 로거의 resource\_type이 VPC 혹은 Subnet인 경우, 하나의 플로우 로그 로거가 여러 개의 플로우 로그 로깅 포트를 관리하게 됩니다.
@@ -494,6 +495,8 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+***
+
 ### 플로우 로그 로깅 포트 보기
 
 ```
@@ -531,6 +534,7 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+<br><br><br>
 
 ## 에러 타입
 

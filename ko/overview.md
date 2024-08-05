@@ -45,7 +45,7 @@
 | 13 | tcp_flags | TCP flag | Integer | TCP flag는 집계 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br> * 자세한 내용은 표 하단의 TCP flags를 참조하시길 바랍니다. |
 | 14 | packets | 집계 간격 동안 확인 된 패킷 개수 | Integer | | 
 | 15 | bytes | 집계 간격 동안 확인 된 패킷의 size 총합 | Byte | |
-| 16 | direction | 집계된 five-tuple의 패킷 흐름 방향 | `INBOUND` \| `OUTBOUND` | |
+| 16 | direction | 집계된 five-tuple의 패킷 흐름 방향 | `INBOUND` \| `OUTBOUND` \| `UNKNOWN` | |
 | 17 | filter | 집계된 five-tuple의 security group 판정 결과 | `ACCEPT` 또는 `DROP` |
 | 18 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량 초과하여 해당 집계 기간 동안 수집되지 않은 패킷이 존재합니다.|
 

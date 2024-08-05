@@ -60,7 +60,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_loggers.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_loggers.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_loggers.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_loggers.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 |
+| flowlog\_loggers.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>

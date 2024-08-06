@@ -11,7 +11,7 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 * 수집 대상: 플로우 로그 수집 단위를 선택할 수 있습니다. 현재는 `네트워크 인터페이스` 단위만 생성할 수 있습니다. 이곳에서 내 프로젝트에 존재하는 네트워크 인터페이스 목록을 확인할 수 있으며, 수집을 원하는 네트워크 인터페이스를 선택할 수 있습니다.
 * 수집 트래픽 유형: **허용**, **차단**, 또는 **허용**과 **차단**을 동시에 선택할 수 있습니다. **허용**을 선택하면 **Security Group**에 허용된 패킷만 수집하며, **차단**을 클릭하면 차단된 패킷만 수집합니다. 둘 다 선택하면 허용/차단 패킷을 모두 수집하여 집계합니다.
 * 연결 시도 패킷만 수집: 해당 설정을 체크하면 연결이 수립된 이후의 패킷은 수집하지 않습니다. TCP의 경우 TCP state가 established인 패킷을, UDP/ICMP의 경우에는 response 패킷을 수집하지 않습니다.
-* 집계 간격: 수집된 패킷들을 정리하고 통계를 내어 저장소에 파일을 생성할 시간 주기입니다. 1분에서 15분 사이로 설정이 가능합니다. 
+* 수집 간격: 수집된 패킷들을 정리하고 통계를 내어 저장소에 파일을 생성할 시간 주기입니다. 1분에서 15분 사이로 설정이 가능합니다. 
 * 파일 저장 경로: 현재는 **Object Storage**만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, directory를 한 번에 입력합니다.
     * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Directory}
     * e.g.,OBS https endpoint가 `https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Directory가 `example/my/folder`인 경우

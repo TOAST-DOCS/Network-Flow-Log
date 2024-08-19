@@ -8,7 +8,8 @@ API를 사용하려면 API 엔드포인트와 토큰 등이 필요합니다. [AP
 | --- | --- | ----- |
 | network | 한국(판교) 리전<br>한국(평촌) 리전 | [https://kr1-api-network-infrastructure.nhncloudservice.com](https://kr1-api-network-infrastructure.nhncloudservice.com)<br>[https://kr2-api-network-infrastructure.nhncloudservice.com](https://kr2-api-network-infrastructure.nhncloudservice.com) |
 
-API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용되며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
+API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용하며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
+
 
 ## 플로우 로그 로거
 
@@ -550,15 +551,20 @@ X-Auth-Token: {tokenId}
 
 ## 오류 유형
 
-플로우 로그를 사용하려는 환경이 올바르게 설정되지 않았다면 에러가 발생할 수 있습니다. 이 경우에는 flowlog_logger.error_type를 조회하여 에러의 이유를 확인할 수 있습니다.
+플로우 로그를 사용하려는 환경이 올바르게 설정되지 않았다면 오류가 발생할 수 있습니다. 이 경우에는 flowlog_logger.error_type를 조회하여 오류 원인을 확인할 수 있습니다.
+
 
 플로우 로그 로거의 상태와 오류 유형은 다음과 같이 존재합니다.
 
-| 플로우 로그 로거 상태 | error_type | 에러 이유 | 확인 필요 내용 |
+| 플로우 로그 로거 상태 | 오류 유형 | 오류 원인 | 확인 필요 사항 |
+
 | :-----------: | :--------------: | :-----------------: | :---: |
 | ACTIVE | - | - | - | - |
 | BUILD | - | - | - | - |
-| ERROR | AuthenticationSystemError | 인증 시스템에 문제가 있습니다. 고객 센터에 문의해주세요. | 플로우 로그 시스템 계정이 Keystone 서버로부터 토큰 발급을 받지 못한 경우입니다. |
-|  | OBSConfigurationError | OBS URL 및 접근 정책을 확인하세요. | 사용자의 저장소로 더미 데이터를 보냈으나, 권한이 없어 403 에러를 받은 경우입니다. 컨테이너 URL 및 접근 정책을 확인하시길 바랍니다. |
-|  | OBSServiceNotAvailableError | OBS 서비스가 동작하지 않습니다. 고객 센터에 문의해주세요. | 사용자의 저장소로 더미 데이터를 보냈으나, 401과 403 이외의 에러를 받는 경우입니다. |
+| ERROR | AuthenticationSystemError | 인증 시스템에 문제가 있습니다. 고객 센터에 문의하세요. | 플로우 로그 시스템 계정이 Keystone 서버로부터 토큰 발급을 받지 못한 경우입니다. |
+
+| ERROR | OBSConfigurationError | OBS URL 및 접근 정책을 확인하세요. | 사용자의 저장소로 더미 데이터를 보냈으나 OBS 접근 권한이 없어 403 오류가 발생한 경우입니다. 컨테이너 URL 및 접근 정책을 확인하세요. |
+
+| ERROR | OBSServiceNotAvailableError | OBS 서비스가 동작하지 않습니다. 고객 센터에 문의하세요. | 사용자의 저장소로 더미 데이터를 보냈으나 401, 403 외의 오류가 발생한 경우입니다. |
+
 

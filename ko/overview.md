@@ -77,8 +77,8 @@
     * SYN: 2
     * RST: 4
     * ACK: 16
-* PSH flag만 존재하는 패킷, ACK flag만 존재하는 패킷 및 일반적으로 트래픽을 송신할 때 사용하는 PSH \| ACK flag는 수집에 포함하지 않습니다. (즉, SYN, SYN \| ACK, FIN \| ACK, RST, FIN 만 기록)
-* URG (Urgent), ECE (ECN-Echo), CWR (Congestion Window Reduced)는 제공하지 않습니다.
+* PSH flag만 존재하는 패킷, ACK flag만 존재하는 패킷 및 일반적으로 트래픽을 송신할 때 사용하는 PSH \| ACK flag는 수집에 포함하지 않습니다. 즉, SYN, SYN \| ACK, FIN \| ACK, RST, FIN 만 기록합니다.
+* URG(urgent), ECE(ECN-echo), CWR(congestion window reduced)는 제공하지 않습니다.
 
 ## 주의 사항
 

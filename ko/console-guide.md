@@ -15,9 +15,9 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 
 * 연결 시도 패킷만 수집: 해당 설정을 체크하면 연결이 수립된 이후의 패킷은 수집하지 않습니다. TCP의 경우 TCP state가 established인 패킷을, UDP/ICMP의 경우에는 response 패킷을 수집하지 않습니다.
 * 수집 간격: 수집된 패킷들을 정리하고 통계를 내어 저장소에 파일을 생성할 시간 주기입니다. 1분에서 15분 사이로 설정이 가능합니다. 
-* 파일 저장 경로: 현재는 **Object Storage**만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, directory를 한 번에 입력합니다.
-    * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Directory}
-    * 예를 들어 OBS https endpoint가 `https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Directory가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
+* 파일 저장 경로: 현재는 Object Storage만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, path를 한 번에 입력합니다.
+    * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
+    * 예를 들어 OBS https endpoint가 `https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Path가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
 
     * 파일 저장 경로 예시: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 
@@ -45,7 +45,7 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 ### 플로우 로그 삭제
 **플로우 로그 삭제** 버튼을 클릭하여 플로우 로그를 삭제할 수 있습니다.
 
-> [주의] 플로우 로그가 수집중인 네트워크 인터페이스가 삭제되어도 플로우 로그는 삭제되지 않습니다. 대신, **삭제된 리소스** 라는 문구가 노출되며 사용자가 직접 삭제해야 합니다. 
+> [주의] 플로우 로그가 수집 중인 네트워크 인터페이스가 삭제되어도 플로우 로그는 삭제되지 않습니다. 대신, **삭제된 리소스** 라는 문구가 노출되며 플로우 로그는 사용자가 직접 삭제해야 합니다. 
 > 수집 대상 리소스가 삭제된 경우에는 수집되는 데이터가 존재하지 않으므로 과금은 되지 않습니다.
 
 ### 플로우 로그 시스템 계정 정보

@@ -42,27 +42,19 @@
 | 2| timestamp_end | 해당 5-tuple이 마지막으로 확인된 시간 | UNIX TIMESTAMP | |
 | 3| interface_id | 네트워크 인터페이스 ID | UUID |  |
 | 4| vm_id | 네트워크 인터페이스를 소유한 인스턴스의 ID | UUID | |
-
 | 5| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
-
 | 6| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
 | 7| region | 리전 정보 | KR1 \| KR2  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
-
 | 8| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
 | 9| src_addr | 출발지 주소 | IPv4 주소 | |
 | 10| dst_addr | 목적지 주소 | IPv4 주소 |
 | 11 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |
 | 12 | dst_port | 목적지 포트 번호 | Integer | ICMP는 0으로 간주합니다. |
 | 13 | tcp_flags | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
-
 | 14 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
-
 | 15 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
-
 | 16 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `INBOUND` \| `OUTBOUND` \| `UNKNOWN` | |
-
 | 17 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
-
 | 18 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
 
 
@@ -77,6 +69,7 @@
     * SYN: 2
     * RST: 4
     * ACK: 16
+
 * PSH flag만 존재하는 패킷, ACK flag만 존재하는 패킷 및 일반적으로 트래픽을 송신할 때 사용하는 PSH \| ACK flag는 수집에 포함하지 않습니다. 즉, SYN, SYN \| ACK, FIN \| ACK, RST, FIN만 기록합니다.
 * URG(urgent), ECE(ECN-echo), CWR(congestion window reduced)는 제공하지 않습니다.
 
@@ -90,6 +83,7 @@
     * 따라서 상황에 따라 적절한 수집 간격을 설정하는 것이 좋습니다.
 
 ### 플로우 로그가 캡처하지 않는 트래픽
+
 * IPv6 트래픽은 기록하지 않습니다.
 * 멀티캐스트 트래픽은 기록하지 않습니다.
 * 인스턴스의 상태를 파악하기 위하여 169.254.169.0/24로 통신하는 트래픽은 기록하지 않습니다.

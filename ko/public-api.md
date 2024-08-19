@@ -44,23 +44,23 @@ X-Auth-Token: {tokenId}
 | --- | --- | --- | --- |
 | flowlog\_loggers | Body | Array | 플로우 로그 객체 목록 |
 | flowlog\_loggers.name | Body | String | 플로우 로그 로거 이름 |
-| flowlog\_loggers.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스의 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
+| flowlog\_loggers.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
 | flowlog\_loggers.resource\_id | Body | UUID | 플로우 로그 로거의 수집 대상 리소스 ID |
 | flowlog\_loggers.filter | Body | String | 플로우 로그 로거의 수집 대상 필터. `ALL`, `ACCEPT`, `DROP` 중에 하나. <br>\* `ACCEPT`은 통신이 허용된 패킷만을 캡쳐<br>\* `DROP`은 통신이 차단된 패킷만을 캡쳐<br>\* `ALL`은 통신이 허용, 차단된 패킷을 모두 캡쳐 |
 | flowlog\_loggers.aggregation\_interval | Body | Integer | 플로우 로그 로거가 수집한 데이터를 합산 및 집계하여 저장소에 파일로 기록할 주기. 단위는 분. 저장소에 파일이 해당 값을 주기로 생성됨.  |
-| flowlog\_loggers.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
+| flowlog\_loggers.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집 대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더 이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
 | flowlog\_loggers.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_loggers.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
-| flowlog\_loggers.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`와 `PARQUET`가 가능. |
-| flowlog\_loggers.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`와 `GZIP`이 가능. 현재는 `RAW`만 지원.  |
+| flowlog\_loggers.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
+| flowlog\_loggers.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW` 및 `GZIP` 가능. 현재는 `RAW`만 지원.  |
 | flowlog\_loggers.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
-| flowlog\_loggers.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* HOUR를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}` 까지 폴더를 생성하여 시간별로 구분 |
+| flowlog\_loggers.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_loggers.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_loggers.description | Body | Boolean | 플로우 로그 로거의 설명 |
 | flowlog\_loggers.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_loggers.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_loggers.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_loggers.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
+| flowlog\_loggers.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>
@@ -144,23 +144,23 @@ X-Auth-Token: {tokenId}
 | ---- | --- | ---- | ----------- |
 | flowlog\_logger | Body | Object | 플로우 로그 로거 정보 객체 |
 | flowlog\_logger.name | Body | String | 플로우 로그 로거 이름 |
-| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스의 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
+| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
 | flowlog\_logger.resource\_id | Body | UUID | 플로우 로그 로거의 수집 대상 리소스 ID |
 | flowlog\_logger.filter | Body | String | 플로우 로그 로거의 수집 대상 필터. `ALL`, `ACCEPT`, `DROP` 중에 하나. <br>\* `ACCEPT`은 통신이 허용된 패킷만을 캡쳐<br>\* `DROP`은 통신이 차단된 패킷만을 캡쳐<br>\* `ALL`은 통신이 허용, 차단된 패킷을 모두 캡쳐 |
 | flowlog\_logger.aggregation\_interval | Body | Integer | 플로우 로그 로거가 수집한 데이터를 합산 및 집계하여 저장소에 파일로 기록할 주기. 단위는 분. 저장소에 파일이 해당 값을 주기로 생성됨.  |
-| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
+| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집 대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더 이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
-| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`와 `PARQUET`가 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`와 `GZIP`이 가능. 현재는 `RAW`만 지원.  |
+| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW` 및 `GZIP` 가능. 현재는 `RAW`만 지원.  |
 | flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
-| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* HOUR를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}` 까지 폴더를 생성하여 시간별로 구분 |
+| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시. <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다. |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시.. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다. |
 
 <details>
   <summary>예시</summary>
@@ -211,17 +211,17 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | flowlog\_logger | Body | Object | O | 플로우 로그 로거 정보 객체 |
 | flowlog\_logger.name | Body | String | O | 플로우 로그 로거 이름 |
-| flowlog\_logger.resource\_type | Body | String |  | 플로우 로그 로거의 수집 대상 리소스의 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. 입력하지 않으면 `PORT`로 간주. |
+| flowlog\_logger.resource\_type | Body | String |  | 플로우 로그 로거의 수집 대상 리소스 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. 입력하지 않으면 `PORT`로 간주. |
 | flowlog\_logger.resource\_id | Body | UUID | O | 플로우 로그 로거의 수집 대상 리소스 ID |
 | flowlog\_logger.filter | Body | String |  | 플로우 로그 로거의 수집 대상 필터. `ALL`, `ACCEPT`, `DROP` 중에 하나. 기본값은 `ALL`.<br>\* `ACCEPT`은 통신이 허용된 패킷만을 캡쳐<br>\* `DROP`은 통신이 차단된 패킷만을 캡쳐<br>\* `ALL`은 통신이 허용, 차단된 패킷을 모두 캡쳐 |
 | flowlog\_logger.aggregation\_interval | Body | Integer |  | 플로우 로그 로거가 수집한 데이터를 합산 및 집계하여 저장소에 파일로 기록할 주기. 단위는 분. 저장소에 파일이 해당 값을 주기로 생성됨. 기본값은 10분. |
-| flowlog\_logger.connection\_setup\_only | Body | Boolean |  | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집대상이 한정됨. 기본값은 `false`<br>\* TCP의 경우 TCP state가 established인 경우는 더이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
+| flowlog\_logger.connection\_setup\_only | Body | Boolean |  | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집 대상이 한정됨. 기본값은 `false`<br>\* TCP의 경우 TCP state가 established인 경우는 더 이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
 | flowlog\_logger.storage\_type | Body | Boolean | O | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
-| flowlog\_logger.storage\_url | Body | Boolean | O | 플로우 로그 로거의 저장소 주소. 저장소 타입이 `OBS`인 경우에는 `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`를 모두 입력해야 한다. |
-| flowlog\_logger.log\_format | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`와 `PARQUET`가 가능. 기본값은 `CSV`. |
-| flowlog\_logger.compression\_type | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`와 `GZIP`이 가능. 현재는 `RAW`만 지원. 기본값은 `RAW`. |
+| flowlog\_logger.storage\_url | Body | Boolean | O | 플로우 로그 로거의 저장소 주소. 저장소 타입이 `OBS`인 경우에는 `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`를 모두 입력해야 함. |
+| flowlog\_logger.log\_format | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. 기본값은 `CSV`. |
+| flowlog\_logger.compression\_type | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW` 및 `GZIP` 가능. 현재는 `RAW`만 지원. 기본값은 `RAW`. |
 | flowlog\_logger.customized_field | Body | String |  | 플로우 로그 로거가 파일에 기록할 필드 |
-| flowlog\_logger.partition\_period | Body | Boolean |  | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. 기본값은 `DAY`. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* HOUR를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}` 까지 폴더를 생성하여 시간별로 구분 |
+| flowlog\_logger.partition\_period | Body | Boolean |  | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. 기본값은 `DAY`. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean |  | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. 기본 값은 `true`. |
 | flowlog\_logger.description | Body | Boolean |  | 플로우 로그 로거의 설명 |
 
@@ -257,23 +257,23 @@ X-Auth-Token: {tokenId}
 | ---- | --- | ---- | --- |
 | flowlog\_logger | Body | Object | 플로우 로그 로거 정보 객체 |
 | flowlog\_logger.name | Body | String | 플로우 로그 로거 이름 |
-| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스의 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
+| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
 | flowlog\_logger.resource\_id | Body | UUID | 플로우 로그 로거의 수집 대상 리소스 ID |
 | flowlog\_logger.filter | Body | String | 플로우 로그 로거의 수집 대상 필터. `ALL`, `ACCEPT`, `DROP` 중에 하나. <br>\* `ACCEPT`은 통신이 허용된 패킷만을 캡쳐<br>\* `DROP`은 통신이 차단된 패킷만을 캡쳐<br>\* `ALL`은 통신이 허용, 차단된 패킷을 모두 캡쳐 |
 | flowlog\_logger.aggregation\_interval | Body | Integer | 플로우 로그 로거가 수집한 데이터를 합산 및 집계하여 저장소에 파일로 기록할 주기. 단위는 분. 저장소에 파일이 해당 값을 주기로 생성됨.  |
-| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
+| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집 대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더 이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
-| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`와 `PARQUET`가 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`와 `GZIP`이 가능. 현재는 `RAW`만 지원.  |
+| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW` 및 `GZIP` 가능. 현재는 `RAW`만 지원.  |
 | flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
-| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* HOUR를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}` 까지 폴더를 생성하여 시간별로 구분 |
+| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시. <br>자세한 내용은 페이지 최하단의 을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>
@@ -349,23 +349,23 @@ X-Auth-Token: {tokenId}
 | ---- | --- | ---- | --- |
 | flowlog\_logger | Body | Object | 플로우 로그 로거 정보 객체 |
 | flowlog\_logger.name | Body | String | 플로우 로그 로거 이름 |
-| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스의 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
+| flowlog\_logger.resource\_type | Body | String | 플로우 로그 로거의 수집 대상 리소스 타입. `VPC`, `SUBNET`, `PORT` 중에 하나. |
 | flowlog\_logger.resource\_id | Body | UUID | 플로우 로그 로거의 수집 대상 리소스 ID |
 | flowlog\_logger.filter | Body | String | 플로우 로그 로거의 수집 대상 필터. `ALL`, `ACCEPT`, `DROP` 중에 하나. <br>\* `ACCEPT`은 통신이 허용된 패킷만을 캡쳐<br>\* `DROP`은 통신이 차단된 패킷만을 캡쳐<br>\* `ALL`은 통신이 허용, 차단된 패킷을 모두 캡쳐 |
 | flowlog\_logger.aggregation\_interval | Body | Integer | 플로우 로그 로거가 수집한 데이터를 합산 및 집계하여 저장소에 파일로 기록할 주기. 단위는 분. 저장소에 파일이 해당 값을 주기로 생성됨.  |
-| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
+| flowlog\_logger.connection\_setup\_only | Body | Boolean | 해당 값이 `true`라면 연결 수립을 시도한 패킷만을 수집. `true`로 설정하면 다음과 같이 수집 대상이 한정됨.<br>\* TCP의 경우 TCP state가 established인 경우는 더 이상 수집하지 않음<br>\* UDP/ICMP의 경우에는 응답 패킷을 수집하지 않음 |
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
-| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`와 `PARQUET`가 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`와 `GZIP`이 가능. 현재는 `RAW`만 지원.  |
+| flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW` 및 `GZIP` 가능. 현재는 `RAW`만 지원.  |
 | flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
-| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* HOUR를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}` 까지 폴더를 생성하여 시간별로 구분 |
+| flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 에러가 발생한 경우, 에러의 이유를 표시 <br>자세한 내용은 페이지 최하단의 에러 타입을 확인하시길 바랍니다.|
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시. <br>자세한 내용은 페이지 최하단의 을 확인하시길 바랍니다.|
 
 <details>
   <summary>예시</summary>
@@ -548,11 +548,11 @@ X-Auth-Token: {tokenId}
 
 <br><br><br>
 
-## 에러 타입
+## 오류 유형
 
 플로우 로그를 사용하려는 환경이 올바르게 설정되지 않았다면 에러가 발생할 수 있습니다. 이 경우에는 flowlog_logger.error_type를 조회하여 에러의 이유를 확인할 수 있습니다.
 
-플로우 로그 로거의 상태와 에러 타입은 다음과 같이 존재합니다.
+플로우 로그 로거의 상태와 오류 유형은 다음과 같이 존재합니다.
 
 | 플로우 로그 로거 상태 | error_type | 에러 이유 | 확인 필요 내용 |
 | :-----------: | :--------------: | :-----------------: | :---: |

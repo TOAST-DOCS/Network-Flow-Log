@@ -59,7 +59,7 @@
 
 | 15 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
 
-| 16 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `INBOUND` \| `OUTBOUND` \| `UNKNOWN` | |
+| 16 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` \| `egress` \| `unknown` | |
 
 | 17 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
 

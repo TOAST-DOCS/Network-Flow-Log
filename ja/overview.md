@@ -53,7 +53,7 @@
 | 13 | tcp_flags | TCP flag | Integer | TCP flagは収集間隔内にキャプチャされたパケットを`bitwise OR`処理して表記します。<br>詳細は、表下部のTCP flagsを参照してください。|
 | 14 | packets | 収集間隔中に確認されたパケット数 | Integer | | 
 | 15 | bytes | 収集間隔中に確認されたパケットサイズの合計 | Byte | |
-| 16 | direction | 収集された5-tupleのパケットフローの方向 | `INBOUND` \| `OUTBOUND` \| `UNKNOWN` | |
+| 16 | direction | 収集された5-tupleのパケットフローの方向 | `ingress` \| `egress` \| `unknown` | |
 | 17 | filter | 収集された5-tupleのSecurity Groupsの判定結果 | `ACCEPT`または`DROP` |
 | 18 | status | ログ状態 | `OK`または`SKIPDATA` |* OK：正常にロギングされた5-tupleです。<br> * SKIPDATA：フローログが提供する内部容量を超え、該当収集間隔期間中に収集されなかったパケットが存在します。|
 

@@ -7,7 +7,7 @@ The Flow Log service provides statistics by analyzing packets entering and leavi
 
 * The Flow Log service examines the headers of all packets going to and from a network interface (currently only the instance's network interface is available).
 
-* However, headers are inspected and statistics are provided only if the L2 type is Ethernet, L3 type is IPv4, and L4 type is TCP/UDP/ICMP. Inspected packets are aggregated based on 5-tuples. 
+* However, headers are inspected and statistics are provided only if the L2 type is Ethernet, the L3 type is IPv4, and the L4 type is TCP/UDP/ICMP. Inspected packets are aggregated based on 5-tuples. 
 * Currently, the Flow Log service utilizes **Object Storage** as its storage. At each collection interval you set, a file is created in Object Storage (OBS), which you can download to see the actual statistics.
 
 * You can check the statistics to see if **Security Groups** are set up correctly, detect external intrusion attempts, and more.
@@ -24,7 +24,7 @@ The Flow Log service provides statistics by analyzing packets entering and leavi
 
 ### Terminology
 
-Describes the resources and terminology used by the flow log service.
+Describes the resources and terminology used by the Flow Log service.
 
 * flowlog logger: A user-created flow log logger. You can set collection intervals, filters, and more.
 * flowlog logging port: The network interface on which collection is actually performed by the user-created flowlog logger.

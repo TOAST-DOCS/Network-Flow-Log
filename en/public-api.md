@@ -36,7 +36,7 @@ This API does not require a request body.
 | storage_type | Query | String | - |  Storage type of flow log logger to look up |
 | log_format | Query | String | - |  Storage format of the flow log logger to look up |
 | compression_type | Query | String | - |  Compression type of the flow log logger to look up |
-| partitioned_period | Query | String | - | Partition cycle of the flow log logger to look up  |
+| partitioned_period | Query | String | - | Partition period of the flow log logger to look up  |
 | String | Query | String | - | Status of the flow log logger to look up |
 
 #### Response
@@ -46,16 +46,16 @@ This API does not require a request body.
 | flowlog_loggers | Body | Array | Flow log object list |
 | flowlog_loggers.name | Body | String | Flow log logger name |
 | flowlog_loggers.resource_type | Body | String | The type of resource the flow log logger collects from. One of `VPC`, `SUBNET`, or `PORT`. |
-| flowlog_loggers.resource_id | Body | UUID | Flow log logger's collect target resource ID |
+| flowlog_loggers.resource_id | Body | UUID | Flow log logger's collection target resource ID |
 | flowlog_loggers.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
-| flowlog_loggers.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at intervals.  |
-| flowlog_loggers.connection_setup_only | Body | Boolean | `If true,` collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_loggers.storage_type | Body | Boolean | Storage type for the flow log logger. Currently `only OBS` is supported. |
+| flowlog_loggers.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at specified intervals.  |
+| flowlog_loggers.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
+| flowlog_loggers.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
 | flowlog_loggers.storage_url | Body | Boolean | Storage address of the flow log logger |
 | flowlog_loggers.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_loggers.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compressed. Currently `only RAW` is supported.  |
+| flowlog_loggers.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently only `RAW` is supported.  |
 | flowlog_loggers.customized_field | Body | String | Fields that the flow log logger will write to a file. Currently not supported. |
-| flowlog_loggers.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR and` `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url entered by the user.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url entered`, up to {YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
+| flowlog_loggers.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
 | flowlog_loggers.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
 | flowlog_loggers.description | Body | Boolean | Description of the flow log logger |
 | flowlog_loggers.status | Body | Enum | Status of the flow log logger |
@@ -149,7 +149,7 @@ This API does not require a request body.
 | flowlog_logger.resource_id | Body | UUID | Flow log logger's collect target resource ID |
 | flowlog_logger.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
 | flowlog_logger.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at intervals.  |
-| flowlog_logger.connection_setup_only | Body | Boolean | `If true,` collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
+| flowlog_logger.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
 | flowlog_logger.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
 | flowlog_logger.storage_url | Body | Boolean | Storage address of the flow log logger |
 | flowlog_logger.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |

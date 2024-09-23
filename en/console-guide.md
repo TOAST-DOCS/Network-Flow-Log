@@ -14,10 +14,10 @@ After you click the **Create Flow Log** button, you can set basic information ab
 * Type of Traffic Collected: You can select **Allow**, **Block**, or both. If you select Allow, only packets allowed to **Security Groups** are collected; if you click Block, only blocked packets are collected. If you select both, both allowed and blocked packets are collected and aggregated.
 
 * Collect only connection attempt packets: If checked, packets after the connection is established are not collected. For TCP, packets with the TCP state established are not collected, and for UDP/ICMP, response packets are not collected.
-* Collection Interval: The time interval to aggregate and create statistics through collected packets and create a file in storage. It can be set between 1 minute and 15 minutes. 
+* Collection Interval: The time interval to sort the collected packets, generate statistics, and create a file in storage. It can be set between 1 minute and 15 minutes. 
 * File Storage Path: Currently, only Object Storage is supported. For **Object Storage**, enter the OBS endpoint, AUTH_tenant, container, and path at once.
     * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * For example, if the OBS https endpoint is `https://api-storage.cloud.toast.com/v1,` the AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, the Container is named `flowlog_container`, and the desired save path is `example/my/folder,` then File Storage Path you need to enter would look like the below.
+    * For example, if the OBS https endpoint is `https://api-storage.cloud.toast.com/v1,` the AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, the Container is named `flowlog_container`, and the desired save path is `example/my/folder,` then File Storage Path you need to enter would look like as below.
 
     * Example File Storage Path: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 

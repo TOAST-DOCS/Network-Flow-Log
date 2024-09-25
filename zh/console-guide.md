@@ -1,71 +1,70 @@
-## Network > Flow Log > 콘솔 사용 가이드
+## Network > Flow Log > Console User Guide
 
-## 플로우 로그 관리
-### 플로우 로그 생성
-NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 있습니다. 플로우 로그가 올바르게 동작하려면 플로우 로그 시스템이 저장소에 접근 권한을 가지고 있어야 합니다. 자세한 내용은 하단의 **플로우 로그의 저장소 접근 권한 부여**를 참고하세요.
-
-
-**플로우 로그 생성** 버튼을 클릭하면 플로우 로그에 대한 기본 정보를 설정할 수 있습니다. 설정에 필요한 항목은 다음과 같습니다.
+## Manage flow logs
+### Create Flow Log
+It can be created through the Create flow log in the NHN Cloud console. For flow logs to work correctly, the flow log system must have access to storage. For more information, see **Granting storage access for flow logs** below.
 
 
-* 이름: 플로우 로그의 이름을 입력합니다.
-* 설명: 플로우 로그에 대한 설명을 기술합니다.
-* 수집 대상: 플로우 로그 수집 단위를 선택할 수 있습니다. 현재는 `네트워크 인터페이스` 단위만 생성할 수 있습니다. 이곳에서 내 프로젝트에 존재하는 네트워크 인터페이스 목록을 확인할 수 있으며, 수집을 원하는 네트워크 인터페이스를 선택할 수 있습니다.
-* 수집 트래픽 유형: **허용**, **차단**, 또는 허용과 차단을 동시에 선택할 수 있습니다. 허용을 선택하면 **Security Groups**에 허용된 패킷만 수집하며, 차단을 클릭하면 차단된 패킷만 수집합니다. 둘 다 선택하면 허용/차단 패킷을 모두 수집하여 집계합니다.
+After you click the **Create Flow Log** button, you can set basic information about the flow log. The settings require the following items.
 
-* 연결 시도 패킷만 수집: 해당 설정을 체크하면 연결이 수립된 이후의 패킷은 수집하지 않습니다. TCP의 경우 TCP state가 established인 패킷을, UDP/ICMP의 경우에는 response 패킷을 수집하지 않습니다.
-* 수집 간격: 수집된 패킷들을 정리하고 통계를 내어 저장소에 파일을 생성할 시간 주기입니다. 1분에서 15분 사이로 설정이 가능합니다. 
-* 파일 저장 경로: 현재는 Object Storage만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, path를 한 번에 입력합니다.
+
+* Name: Enter a name for the flow log.
+* Description: Describe the flow log.
+* Collect Target: Allow you to select the flow log collection unit. Currently, you can only create `network interface` units. Here you can see a list of network interfaces that exist in your project, and select the one you want to collect.
+* Type of Traffic Collected: You can select **Allow**, **Block**, or both. If you select Allow, only packets allowed to **Security Groups** are collected; if you click Block, only blocked packets are collected. If you select both, both allowed and blocked packets are collected and aggregated.
+
+* Collect only connection attempt packets: If checked, packets after the connection is established are not collected. For TCP, packets with the TCP state established are not collected, and for UDP/ICMP, response packets are not collected.
+* Collection Interval: The time interval to sort the collected packets, generate statistics, and create a file in storage. It can be set between 1 minute and 15 minutes. 
+* File Storage Path: Currently, only Object Storage is supported. For **Object Storage**, enter the OBS endpoint, AUTH_tenant, container, and path at once.
     * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * 예를 들어 OBS https endpoint가 `https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Path가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
+    * For example, if the OBS https endpoint is `https://api-storage.cloud.toast.com/v1,` the AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, the Container is named `flowlog_container`, and the desired save path is `example/my/folder,` then File Storage Path you need to enter would look like as below.
 
-    * 파일 저장 경로 예시: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
+    * Example File Storage Path: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 
 
-> [주의] Object Storage에 사용자가 지정한 container가 존재하지 않거나 권한이 올바르게 설정되어 있지 않으면 플로우 로그는 오류 상태로 전환됩니다. 오류 원인은 플로우 로그 보기 화면에서 상태에 마우스를 올리면 확인할 수 있습니다.
+> [Caution] If the container specified does not exist in Object Storage, or if permissions are not set correctly, the flow log enters an error state. You can see the error by hovering over the status on the Flow Log List screen.
 
  
-> [참고] Object Storage 내에 사용자가 지정한 경로가 존재하지 않으면 새로 생성합니다.
+> [Note] If the path specified does not exist within Object Storage, it will be created.
 
 
-* 파일 형식: 저장소에 저장할 파일의 형식입니다. **CSV**, **PARQUET** 파일 형식을 지원합니다. `PARQUET`를 사용하면 큰 파일을 작은 사이즈로 압축할 수 있습니다.
+* File Format: The format of the file to save to the storage. **CSV** and **PARQUET** file formats are supported. `PARQUET` allows you to compress large files into smaller sizes.
 
-* 파일 분할 저장: 플로우 로그가 생성한 파일을 분류할 폴더 주기입니다. **1시간 마다**로 지정하면 플로우 로그는 사용자가 설정한 파일 저장 경로 아래에 1시간 단위로 하나의 폴더에 기록합니다. **1일 마다**로 지정하면 1일 단위로 폴더를 생성합니다.
+* Save split files: The folder frequency at which the flow log categorizes the files it generates. If you specify **Per Hour**, the flow log writes to one folder every hour under the file storage path set. If you specify **Per Day**, it creates a folder every 1 day.
 
     * {storage_url}/{YEAR}/{MONTH}/{DAY}/{HOUR}
-    * 예: 1시간 마다로 설정 시, example/my/folder/2024/09/01/22 폴더 하위에 22시 00분~22시 59분에 해당하는 플로우 로그 파일들을 저장
-    * 예: 1일 마다로 설정 시, example/my/folder/2024/09/01 폴더 하위에 9월 1일의 플로우 로그 파일들을 저장
+    * Example: When set to Per Hour, save the flow log files from 22:00 to 22:59 under the example/my/folder/2024/09/01/22 folder
+    * Example: When set to Per Day, save the flow log files for September 1 under the folder example/my/folder/2024/09/01
 
 
-### 플로우 로그 변경
-**플로우 로그 변경** 버튼을 클릭하여 플로우 로그의 이름과 설명을 수정할 수 있습니다.
+### Change Flow Log
+You can modify the name and description of the flow log by clicking the **Change Flow Log** button.
 
-### 플로우 로그 삭제
-**플로우 로그 삭제** 버튼을 클릭하여 플로우 로그를 삭제할 수 있습니다.
+### Delete Flow Log
+You can delete a flow log by clicking the **Delete Flow Log** button.
 
-> [주의] 플로우 로그가 수집 중인 네트워크 인터페이스가 삭제되어도 플로우 로그는 삭제되지 않습니다. 대신, **삭제된 리소스** 라는 문구가 노출되며 플로우 로그는 사용자가 직접 삭제해야 합니다. 
-> 수집 대상 리소스가 삭제된 경우에는 수집되는 데이터가 존재하지 않으므로 과금은 되지 않습니다.
+> [Caution] If the network interface on which the flow logs are being collected is deleted, the flow logs are not deleted. Instead, the **Deleted resource** message is displayed and you must delete the flow logs yourself.
+If the resource being collected is deleted, you will not be charged because the data being collected does not exist.
 
-### 플로우 로그 시스템 계정 정보
-**플로우 로그 시스템 계정 정보**를 클릭하면 플로우 로그 시스템이 사용하는 **Flow Log 테넌트 ID**와 **Flow Log API 사용자 ID**가 표시됩니다. 플로우 로그를 사용하기 위해서는 사용자의 저장소에 해당 Flow Log 테넌트 ID 및 Flow Log API 사용자 ID에게 쓰기 접근 권한을 부여해야 합니다. 자세한 내용은 아래의 **플로우 로그의 저장소 접근 권한 부여**를 참고하세요.
-
-
+### Flow Log System Account Information
+Click **Flow Log System Account Information** to display the **Flow Log Tenant ID** and **Flow Log API User ID** used by the Flow Log system. To use flow logs, you must grant write access to your storage to the corresponding Flow Log tenant ID and Flow Log API user ID. For more information, see **Granting storage access for flow logs** below.
 
 
-## 플로우 로그의 저장소 접근 권한 부여
+
+
+## Grant storage access permissions for flow logs
 ### Object Storage
-저장소 타입을 OBS(object storage)로 지정하여 플로우 로그를 생성한 경우, 플로우 로그 시스템 계정이 해당 OBS에 쓰기로 접근할 수 있어야 합니다. 만약 쓰기 권한을 올바르게 부여하지 않았다면, 플로우 로그 시스템 계정은 사용자의 OBS에 데이터를 기록할 수 없습니다.
+If you created a flow log with the storage type specified as object storage (OBS), the flow log system account must have write access to that OBS. If you don't grant write permissions correctly, the flow log system account can't write data to the OBS.
 
 
-### 설정 방법
+### How to set it up
 
-* NHN Cloud > Object Storage 콘솔로 접근합니다.
+* Access the NHN Cloud > Object Storage console.
 
-* 플로우 로그 데이터를 저장할 컨테이너를 선택합니다.
-* 하단의 **기본 정보 > 접근 정책 설정 변경**을 클릭합니다.
+* Select a container to store flow log data in.
+* At the bottom, click **Basic Information > Change Access Policy Settings**.
 
-* **역할 기반 접근 정책**에서 **사용**을 클릭합니다.
-* 위에서 확인했던 **플로우 로그 시스템 계정 정보**의 테넌트 ID와 API 사용자 ID를 입력하고 **Write** 권한을 부여합니다.
+* Under **Role-based Access Policy**, click **Use**.
+* Enter the tenant ID and API user ID from the **Flow Log System Account Information** identified above, and grant **Write** permission.
 
-> [참고] 플로우 로그가 생성된 경우, 최초 1회 사용자의 OBS 저장소로 0Bytes 파일(더미 파일)을 전송합니다. 이를 통해서 접근 권한이 올바르게 설정되었는지 검증합니다. 해당 더미 파일은 짧은 시간 내에 삭제됩니다.
-
+> [Note] When a flow log is created, it sends a 0 Bytes file (dummy file) to the first-time user's OBS storage. This verifies that access permissions are set correctly. This dummy file is deleted after a short period of time.

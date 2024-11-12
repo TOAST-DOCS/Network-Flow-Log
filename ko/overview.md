@@ -59,7 +59,8 @@
 
 
 ### TCP Flag
-* TCP 연결이 짧은 경우, TCP Active open을 시도하는 측에서 SYN, FIN을 수집 간격 내에 송신할 수 있습니다. 이때는 SYN \| FIN (2 | 1 = 3)이  기록됩니다. 
+* TCP 연결이 짧은 경우 TCP Active open을 시도하는 측에서 SYN, FIN을 수집 간격 내에 송신할 수 있습니다. 이때는 SYN \| FIN (2 | 1 = 3)이 기록됩니다. 
+
 
 * 반대로 수신 데이터로는 수집 간격 내에 SYN \| ACK, 그리고 FIN이 수신될 수 있습니다. 이때는 SYN \| ACK \| FIN (16 | 2 | 1 = 19)이 기록됩니다. 
 

@@ -15,7 +15,7 @@ After you click the **Create Flow Log** button, you can set basic information ab
 
 * Collect only connection attempt packets: If checked, packets after the connection is established are not collected. For TCP, packets with the TCP state established are not collected, and for UDP/ICMP, response packets are not collected.
 * Collection Interval: The time interval to sort the collected packets, generate statistics, and create a file in storage. It can be set between 1 minute and 15 minutes. 
-* Collection Item: Select an item to collect. If basic item is selected, only required items are collected and logged in files. More items can be selected in custom items. For supported items, see Statistics Information Items in [Flow Log Overview](/Network/Flow%20Log/ko/overview/).
+* Collection Item: Select an item to collect. If basic item is selected, only required items are collected and logged in files. More items can be selected in custom items. For supported items, see Statistics Information Items in [Flow Log Overview](/Network/Flow%20Log/en/overview/).
 * File Storage Path: Currently, only Object Storage is supported. For **Object Storage**, enter the OBS endpoint, AUTH_tenant, container, and path at once.
     * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
     * For example, if the OBS https endpoint is `https://api-storage.cloud.toast.com/v1,` the AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, the Container is named `flowlog_container`, and the desired save path is `example/my/folder,` then File Storage Path you need to enter would look like as below.

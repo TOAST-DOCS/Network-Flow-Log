@@ -154,7 +154,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.storage\_url | Body | Boolean | フローログロガーのストレージアドレス |
 | flowlog\_logger.log\_format | Body | Boolean | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。 |
 | flowlog\_logger.compression\_type | Body | Boolean | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
-| flowlog\_logger.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。現在はサポートしない機能。<br>\* Flow Logがサポートするフィールドは、ユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
+| flowlog\_logger.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。<br>\* Flow Logがサポートするフィールドは、ユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
 | flowlog\_logger.partition\_period | Body | Boolean | フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。 <br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。|
 | flowlog\_logger.description | Body | Boolean | フローログロガーの説明 |

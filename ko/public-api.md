@@ -53,8 +53,8 @@ X-Auth-Token: {tokenId}
 | flowlog\_loggers.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_loggers.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
 | flowlog\_loggers.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
-| flowlog\_loggers.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 현재는 `RAW`만 지원.  |
-| flowlog\_loggers.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
+| flowlog\_loggers.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. |
+| flowlog\_loggers.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. <br>\* Flow Log가 지원하는 필드는 사용자 가이드 Flow Log 개요에서 통계 제공 정보의 필드를 확인하시길 바랍니다.|
 | flowlog\_loggers.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_loggers.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_loggers.description | Body | Boolean | 플로우 로그 로거의 설명 |
@@ -153,8 +153,8 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
 | flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 현재는 `RAW`만 지원.  |
-| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. |
+| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. <br>\* Flow Log가 지원하는 필드는 사용자 가이드 Flow Log 개요에서 통계 제공 정보의 필드를 확인하시길 바랍니다.|
 | flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |
@@ -220,8 +220,8 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.storage\_type | Body | Boolean | O | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | O | 플로우 로그 로거의 저장소 주소. 저장소 타입이 `OBS`인 경우에는 `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`를 모두 입력해야 함. |
 | flowlog\_logger.log\_format | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. 기본값은 `CSV`. |
-| flowlog\_logger.compression\_type | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 현재는 `RAW`만 지원. 기본값은 `RAW`. |
-| flowlog\_logger.customized_field | Body | String |  | 플로우 로그 로거가 파일에 기록할 필드 |
+| flowlog\_logger.compression\_type | Body | Boolean |  | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 기본값은 `RAW`. |
+| flowlog\_logger.customized_field | Body | String |  | 플로우 로그 로거가 파일에 기록할 필드, <br>\* 아래 예시와 같이 쉼표 구분 형태로 작성해야 하며, 순서의 영향을 받음 <br>\* Flow Log가 지원하는 필드는 사용자 가이드 Flow Log 개요에서 통계 제공 정보의 필드를 확인하시길 바랍니다. |
 | flowlog\_logger.partition\_period | Body | Boolean |  | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. 기본값은 `DAY`. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean |  | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. 기본 값은 `true`. |
 | flowlog\_logger.description | Body | Boolean |  | 플로우 로그 로거의 설명 |
@@ -266,8 +266,8 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
 | flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 현재는 `RAW`만 지원.  |
-| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. |
+| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드.<br>\* Flow Log가 지원하는 필드는 사용자 가이드 Flow Log 개요에서 통계 제공 정보의 필드를 확인하시길 바랍니다. |
 | flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |
@@ -358,8 +358,8 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.storage\_type | Body | Boolean | 플로우 로그 로거의 저장소 타입. 현재는 `OBS`만 지원. |
 | flowlog\_logger.storage\_url | Body | Boolean | 플로우 로그 로거의 저장소 주소 |
 | flowlog\_logger.log\_format | Body | Boolean | 플로우 로그 로거가 저장할 파일의 포맷. `CSV`, `PARQUET` 파일 형식 가능. |
-| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. 현재는 `RAW`만 지원.  |
-| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. |
+| flowlog\_logger.compression\_type | Body | Boolean | 플로우 로그 로거가 저장할 파일의 압축 형태. `RAW`, `GZIP` 압축 형식 가능. |
+| flowlog\_logger.customized_field | Body | String | 플로우 로그 로거가 파일에 기록할 필드. 현재는 지원하지 않는 기능. <br>\* Flow Log가 지원하는 필드는 사용자 가이드 Flow Log 개요에서 통계 제공 정보의 필드를 확인하시길 바랍니다. |
 | flowlog\_logger.partition\_period | Body | Boolean | 플로우 로그 로거가 저장소에 파일을 저장할 때, 폴더 생성 구조를 의미. `HOUR`와 `DAY`를 지원. <br>\* `DAY`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}` 폴더를 생성하여 일자를 구분<br>\* `HOUR`를 지정하면 사용자가 입력했던 storage\_url의 directory-path 하위에 `{YEAR}/{MONTH}/{DAY}/{HOUR}`까지 폴더를 생성하여 시간별로 구분 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | 플로우 로그 로거의 활성화 상태. `false`인 경우 비활성화되어 수집하지 않음. |
 | flowlog\_logger.description | Body | Boolean | 플로우 로그 로거의 설명 |

@@ -53,8 +53,8 @@ This API does not require a request body.
 | flowlog_loggers.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
 | flowlog_loggers.storage_url | Body | Boolean | Storage address of the flow log logger |
 | flowlog_loggers.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_loggers.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently, only `RAW` is supported.  |
-| flowlog_loggers.customized_field | Body | String | Fields that the flow log logger will write to a file. Currently not supported. |
+| flowlog_loggers.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
+| flowlog_loggers.customized_field | Body | String | Fields that the flow log logger will write to a file.  <br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items.|
 | flowlog_loggers.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
 | flowlog_loggers.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
 | flowlog_loggers.description | Body | Boolean | Description of the flow log logger |
@@ -153,8 +153,8 @@ This API does not require a request body.
 | flowlog_logger.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
 | flowlog_logger.storage_url | Body | Boolean | Storage address of the flow log logger |
 | flowlog_logger.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_logger.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently, only `RAW` is supported.  |
-| flowlog_logger.customized_field | Body | String | Fields that the flow log logger will write to a file. Currently not supported. |
+| flowlog_logger.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type.  |
+| flowlog_logger.customized_field | Body | String | Fields that the flow log logger will write to a file. <br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items. |
 | flowlog_logger.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
 | flowlog_logger.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
 | flowlog_logger.description | Body | Boolean | Description of the flow log logger |
@@ -220,8 +220,8 @@ X-Auth-Token: {tokenId}
 | flowlog_logger.storage_type | Body | Boolean | O | Storage type for the flow log logger. Currently, only `OBS` is supported. |
 | flowlog_logger.storage_url | Body | Boolean | O | The storage address of the flow log logger. If the storage type is `OBS`, you must enter all of `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`. |
 | flowlog_logger.log_format | Body | Boolean |  | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. The default is `CSV`. |
-| flowlog_logger.compression_type | Body | Boolean |  | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently, only `RAW` is supported. The default is `RAW`. |
-| flowlog_logger.customized_field | Body | String |  | Fields for the flow log logger to write to a file |
+| flowlog_logger.compression_type | Body | Boolean |  | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. The default is `RAW`. |
+| flowlog_logger.customized_field | Body | String |  | Fields for the flow log logger to write to a file, <br>\* Must be written in comma-separated form, as shown in the example below, and is affected by order<br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items. |
 | flowlog_logger.partition_period | Body | Boolean |  | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. The default is `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url entered by the user.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url entered, up to {YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
 | flowlog_logger.admin_state_up | Body | Boolean |  | Enable status of the flow log logger. If `false`, it is disabled and does not collect. Default is `true`. |
 | flowlog_logger.description | Body | Boolean |  | Description of the flow log logger |

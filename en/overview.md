@@ -32,7 +32,7 @@ Describes the resources and terminology used by the Flow Log service.
 
 
 
-## Statistics Information
+## Statistics Information Items 
 * The Flow Log service collects and aggregates packets and presents them to you in the following ways.
 
 
@@ -44,13 +44,13 @@ Describes the resources and terminology used by the Flow Log service.
 | 4| vm_id | The ID of the instance that owns the network interface | UUID | |
 | 5| subnet_id | The ID of the subnet that owns the network interface | UUID | |
 | 6| vpc_id | The ID of the VPC that owns the network interface | UUID | |
-| 7| region | Regions | `KR1` or `KR2`  | \* KR1: Korea (Pangyo) <br> \* KR2: Korea (Pyeongchon) |
+| 7| region | Regions |  `KR1` \| `KR2`  | \* KR1: Korea (Pangyo) <br> \* KR2: Korea (Pyeongchon) |
 | 8| protocol | Protocol number from the 5-tuple | Represents the protocol number assigned by IANA. <br> \* Each number corresponds to a protocol - 1: ICMP, 6: UDP, 17: TCP <br> \* Nothing else is collected.|
 | 9| src_addr | Source address | IPv4 address | |
 | 10| dst_addr | Destination address | IPv4 address |
 | 11 | src_port | Source port number| Integer | ICMP is assumed to be zero. |
 | 12 | dst_port | Destination port number | Integer | ICMP is assumed to be zero. |
-| 13 | tcp_flags | TCP flag | Integer | The TCP flag processes the packets captured within the collection interval with `bitwise OR`. <br>See the TCP flags at the bottom of the table for more information. |
+| 13 | tcp_flag | TCP flag | Integer | The TCP flag processes the packets captured within the collection interval with `bitwise OR`. <br>See the TCP flags at the bottom of the table for more information. |
 | 14 | packets | Number of packets inspected during the collection interval | Integer | | 
 | 15 | bytes | Total packet size inspected during the collection interval | Byte | |
 | 16 | direction | Packet flow direction of the collected 5-tuple | `ingress`, `egress`, or `unknown` | |
@@ -88,3 +88,4 @@ Describes the resources and terminology used by the Flow Log service.
 * Multicast traffic is not logged.
 * Traffic communicating to 169.254.169.0/24 to determine the health of the instance is not logged.
 * Traffic mirroring is not logged.
+* ARP packet is not logged.

@@ -32,7 +32,7 @@
 
 
 
-## 통계 제공 정보
+## 통계 제공 정보 항목
 * 플로우 로그 서비스가 패킷을 수집 및 집계하여 사용자에게 제공하는 항목은 다음과 같습니다.
 
 
@@ -44,13 +44,13 @@
 | 4| vm_id | 네트워크 인터페이스를 소유한 인스턴스의 ID | UUID | |
 | 5| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
 | 6| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
-| 7| region | 리전 정보 | KR1 \| KR2  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
+| 7| region | 리전 정보 | `KR1` \| `KR2`  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
 | 8| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
 | 9| src_addr | 출발지 주소 | IPv4 주소 | |
 | 10| dst_addr | 목적지 주소 | IPv4 주소 |
 | 11 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |
 | 12 | dst_port | 목적지 포트 번호 | Integer | ICMP는 0으로 간주합니다. |
-| 13 | tcp_flags | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
+| 13 | tcp_flag | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
 | 14 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
 | 15 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
 | 16 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` \| `egress` \| `unknown` | |
@@ -58,8 +58,9 @@
 | 18 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
 
 
-### TCP Flags
-* TCP 연결이 짧은 경우, TCP Active open을 시도하는 측에서 SYN, FIN을 수집 간격 내에 송신할 수 있습니다. 이때는 SYN \| FIN (2 | 1 = 3)이  기록됩니다. 
+### TCP Flag
+* TCP 연결이 짧은 경우 TCP Active open을 시도하는 측에서 SYN, FIN을 수집 간격 내에 송신할 수 있습니다. 이때는 SYN \| FIN (2 | 1 = 3)이 기록됩니다. 
+
 
 * 반대로 수신 데이터로는 수집 간격 내에 SYN \| ACK, 그리고 FIN이 수신될 수 있습니다. 이때는 SYN \| ACK \| FIN (16 | 2 | 1 = 19)이 기록됩니다. 
 
@@ -88,3 +89,4 @@
 * 멀티캐스트 트래픽은 기록하지 않습니다.
 * 인스턴스의 상태를 파악하기 위하여 169.254.169.0/24로 통신하는 트래픽은 기록하지 않습니다.
 * 트래픽 미러링은 기록하지 않습니다.
+* ARP 패킷은 기록하지 않습니다.

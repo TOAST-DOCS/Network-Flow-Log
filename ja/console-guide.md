@@ -16,7 +16,7 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 * 接続試行パケットのみ収集:この設定をチェックすると、接続が確立された後のパケットは収集しません。TCPの場合はTCP stateが確立されたパケットを、UDP/ICMPの場合はresponseパケットを収集しません。
 * 収集間隔：収集されたパケットを整理し、統計を出してストレージにファイルを作成する時間周期です。1分から15分の間で設定が可能です。
 * ファイル保存パス：現在はObject Storageのみをサポートしています。**Object Storage**の場合は、OBS endpoint、AUTH_tenant、container、pathを一度に入力します。
-    * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
+    * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
     * 例えば、OBS https endpointが`https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANTが`AUTH_e670167936434f85a03694184000ffe6`, Containerの名前が`flowlog_container`、希望する保存Pathが`example/my/folder`の場合のファイル保存パスは次のとおりです。
 
     * ファイル保存パスの例：https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder

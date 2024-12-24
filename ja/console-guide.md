@@ -18,7 +18,7 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 * 収集項目：収集したい項目を選択します。基本項目を選択すると、収集データに対して必須項目のみを集計してファイルに記録します。ユーザー定義項目ではより多くの項目を選択できます。サポートする項目は[Flow Log概要](/Network/Flow%20Log/ko/overview/)の統計提供情報項目フィールドをご確認ください。
 
 * ファイル保存パス：現在はObject Storageのみをサポートしています。**Object Storage**の場合は、OBS endpoint、AUTH_tenant、container、pathを一度に入力します。
-    * {OBS https endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
+    * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
     * 例えば、OBS https endpointが`https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANTが`AUTH_e670167936434f85a03694184000ffe6`, Containerの名前が`flowlog_container`、希望する保存Pathが`example/my/folder`の場合のファイル保存パスは次のとおりです。
 
     * ファイル保存パスの例：https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder

@@ -5,9 +5,10 @@
 
 ### 주요 기능
 
-* 플로우 로그 서비스는 네트워크 인터페이스로 오가는 모든 패킷들의 헤더를 검사합니다(현재는 인스턴스의 네트워크 인터페이스만 제공).
+* 플로우 로그 서비스는 네트워크 인터페이스로 오가는 모든 패킷들의 헤더를 검사합니다. 현재는 인스턴스의 네트워크 인터페이스와 트랜짓 허브 연결에 대해서만 제공합니다.
 
-* 단, L2 유형은 Ethernet를, L3 유형은 IPv4를, L4 유형은 TCP/UDP/ICMP인 경우에만 헤더를 검사하여 통계를 제공합니다. 검사된 패킷들은 5-tuple을 기준으로 집계됩니다. 
+* 단, L2 유형은 Ethernet를, L3 유형은 IPv4를, L4 유형은 TCP/UDP/ICMP인 경우에만 헤더를 검사하여 통계를 제공합니다. 검사된 패킷들은 5-tuple을 기준으로 집계됩니다.
+
 * 현재 플로우 로그 서비스는 **Object Storage**를 저장소로 활용합니다. 사용자가 설정한 수집 간격마다 OBS(Object Storage)에 파일이 생성되며, 이 파일을 다운로드하여 실제 통계를 확인할 수 있습니다.
 
 * 통계를 확인하여 **Security Groups**의 올바른 설정 여부, 외부 침입 시도 등을 확인할 수 있습니다.
@@ -16,6 +17,8 @@
 ### 서비스 대상
 
 * 인스턴스의 포트를 통해 들어오고 나가는 패킷의 연결 정보, 통계 등을 수집/확인하고 싶은 경우
+
+* 사용중인 네트워크 서비스들에 흐르는 패킷의 연결 정보, 통계 등을 수집/확인하고 싶은 경우
 
 * **Security Groups** 설정에 의해 허용 또는 차단된 패킷의 연결 정보, 통계를 수집/확인하고 싶은 경우
 
@@ -41,21 +44,26 @@
 | 1| timestamp_start | 해당 5-tuple이 처음 확인된 시간 | UNIX TIMESTAMP |  |
 | 2| timestamp_end | 해당 5-tuple이 마지막으로 확인된 시간 | UNIX TIMESTAMP | |
 | 3| interface_id | 네트워크 인터페이스 ID | UUID |  |
-| 4| vm_id | 네트워크 인터페이스를 소유한 인스턴스의 ID | UUID | |
-| 5| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
-| 6| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
-| 7| region | 리전 정보 | `KR1` \| `KR2`  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
-| 8| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
-| 9| src_addr | 출발지 주소 | IPv4 주소 | |
-| 10| dst_addr | 목적지 주소 | IPv4 주소 |
-| 11 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |
-| 12 | dst_port | 목적지 포트 번호 | Integer | ICMP는 0으로 간주합니다. |
-| 13 | tcp_flag | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
-| 14 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
-| 15 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
-| 16 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` \| `egress` \| `unknown` | |
-| 17 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
-| 18 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
+| 4| owner_type | 네트워크 인터페이스를 소유한 장비의 종류 | `instance` 또는 `transithub_attachment` | |
+| 5| owner_id | 네트워크 인터페이스를 소유한 인스턴스의 ID | UUID | |
+| 6| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
+| 7| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
+| 8| region | 리전 정보 | `KR1` 또는 `KR2`  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
+| 9| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
+| 10 | src_addr | 출발지 주소 | IPv4 주소 | |
+| 11 | dst_addr | 목적지 주소 | IPv4 주소 |
+| 12 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |
+| 13 | dst_port | 목적지 포트 번호 | Integer | ICMP는 0으로 간주합니다. |
+| 14 | tcp_flag | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
+| 15 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
+| 16 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
+| 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` 또는 `egress` 또는 `unknown` | |
+| 18 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
+| 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer | |
+| 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte | |
+| 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer | |
+| 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte | |
+| 23 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
 
 
 ### TCP Flag
@@ -86,7 +94,13 @@
 ### 플로우 로그가 캡처하지 않는 트래픽
 
 * IPv6 트래픽은 기록하지 않습니다.
-* 멀티캐스트 트래픽은 기록하지 않습니다.
+* 인스턴스로 오가는 멀티캐스트 트래픽은 기록하지 않습니다.
 * 인스턴스의 상태를 파악하기 위하여 169.254.169.0/24로 통신하는 트래픽은 기록하지 않습니다.
 * 트래픽 미러링은 기록하지 않습니다.
 * ARP 패킷은 기록하지 않습니다.
+
+### 플로우 로그를 트랜짓 허브 연결에 사용 시 유의 사항
+
+* 트랜짓 허브의 멀티캐스트 트래픽은 유입(ingress)만 기록합니다.
+* 트랜짓 허브에 흘렀던 패킷은 트랜짓 허브 라우터의 드랍 여부와 관계없이 모두 `ACCEPT`에 한 번씩 기록됩니다. 트랜짓 허브에서 실제로 드랍된 패킷은 `DROP`으로 별도의 줄에 표기됩니다.
+* 트랜짓 허브는 `연결 수립 패킷만 수집 (connection setup only)` 옵션의 영향을 받지 않습니다.

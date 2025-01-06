@@ -57,7 +57,7 @@
 | 14 | tcp_flag | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
 | 15 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
 | 16 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
-| 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` 또는 `egress` 또는 `unknown` | |
+| 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress`, `egress` 또는 `unknown` | |
 | 18 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
 | 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 다른 인터페이스 종류는 0으로 표기됩니다. |
 | 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 다른 인터페이스 종류는 0으로 표기됩니다. |

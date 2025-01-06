@@ -59,10 +59,10 @@
 | 16 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
 | 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress` 또는 `egress` 또는 `unknown` | |
 | 18 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
-| 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer | |
-| 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte | |
-| 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer | |
-| 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte | |
+| 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 그 외의 인터페이스 종류는 0으로 표기됩니다. |
+| 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 그 외의 인터페이스 종류는 0으로 표기됩니다. |
+| 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 그 외의 인터페이스 종류는 0으로 표기됩니다. |
+| 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 그 외의 인터페이스 종류는 0으로 표기됩니다. |
 | 23 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
 
 

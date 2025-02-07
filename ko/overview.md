@@ -49,7 +49,7 @@
 | 6| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
 | 7| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
 | 8| region | 리전 정보 | `KR1` 또는 `KR2`  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
-| 9| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
+| 9| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: TCP, 17: UDP <br> * 이 외에는 수집하지 않습니다.|
 | 10 | src_addr | 출발지 주소 | IPv4 주소 | |
 | 11 | dst_addr | 목적지 주소 | IPv4 주소 |
 | 12 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |

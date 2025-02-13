@@ -39,31 +39,31 @@
 * 플로우 로그 서비스가 패킷을 수집 및 집계하여 사용자에게 제공하는 항목은 다음과 같습니다.
 
 
-| 번호 | 필드 | 설명 | 단위 | 비고 | 
-| --- | --- | --- | --- | --- | 
-| 1| timestamp_start | 해당 5-tuple이 처음 확인된 시간 | UNIX TIMESTAMP |  |
-| 2| timestamp_end | 해당 5-tuple이 마지막으로 확인된 시간 | UNIX TIMESTAMP | |
-| 3| interface_id | 네트워크 인터페이스 ID | UUID |  |
-| 4| owner_type | 네트워크 인터페이스를 소유한 장비의 종류 | `instance` 또는 `transithub_attachment` | |
-| 5| owner_id | 네트워크 인터페이스를 소유한 장비의 ID | UUID | |
-| 6| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
-| 7| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |
-| 8| region | 리전 정보 | `KR1` 또는 `KR2`  | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전 |
-| 9| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다.|
-| 10 | src_addr | 출발지 주소 | IPv4 주소 | |
-| 11 | dst_addr | 목적지 주소 | IPv4 주소 |
-| 12 | src_port | 출발지 포트 번호| Integer | ICMP는 0으로 간주합니다. |
-| 13 | dst_port | 목적지 포트 번호 | Integer | ICMP는 0으로 간주합니다. |
-| 14 | tcp_flag | TCP flag | Integer | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요. |
-| 15 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer | | 
-| 16 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte | |
-| 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress`, `egress` 또는 `unknown` | |
-| 18 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP` |
-| 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다. |
-| 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다. |
-| 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다. |
-| 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다. |
-| 23 | status | 로그 상태 | `OK` 또는 `SKIPDATA` |* OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다.|
+| 번호 | 필드 | 설명 | 단위                                                                                                          | 비고                                                                                                                                                 | 
+| --- | --- | --- |-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------| 
+| 1| timestamp_start | 해당 5-tuple이 처음 확인된 시간 | UNIX TIMESTAMP                                                                                              |                                                                                                                                                    |
+| 2| timestamp_end | 해당 5-tuple이 마지막으로 확인된 시간 | UNIX TIMESTAMP                                                                                              |                                                                                                                                                    |
+| 3| interface_id | 네트워크 인터페이스 ID | UUID                                                                                                        |                                                                                                                                                    |
+| 4| owner_type | 네트워크 인터페이스를 소유한 장비의 종류 | `instance` 또는 `transithub_attachment`                                                                       |                                                                                                                                                    |
+| 5| owner_id | 네트워크 인터페이스를 소유한 장비의 ID | UUID                                                                                                        |                                                                                                                                                    |
+| 6| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID                                                                                                        |                                                                                                                                                    |
+| 7| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID                                                                                                        |                                                                                                                                                    |
+| 8| region | 리전 정보 | `KR1` 또는 `KR2`                                                                                              | * KR1: 한국(판교) 리전 <br> * KR2: 한국(평촌) 리전                                                                                                             |
+| 9| protocol | 5-tuple 중에서 프로토콜 번호 | IANA에서 부여한 프로토콜 번호를 표현합니다. <br> * 각 번호에 따른 프로토콜은 다음과 같습니다. 1: ICMP, 6: UDP, 17: TCP <br> * 이 외에는 수집하지 않습니다. |
+| 10 | src_addr | 출발지 주소 | IPv4 주소                                                                                                     |                                                                                                                                                    |
+| 11 | dst_addr | 목적지 주소 | IPv4 주소                                                                                                     |
+| 12 | src_port | 출발지 포트 번호| Integer                                                                                                     | ICMP는 0으로 간주합니다.                                                                                                                                   |
+| 13 | dst_port | 목적지 포트 번호 | Integer                                                                                                     | ICMP는 0으로 간주합니다.                                                                                                                                   |
+| 14 | tcp_flag | TCP flag | Integer                                                                                                     | TCP flag는 수집 간격 내에 캡처된 패킷을 `bitwise OR` 처리하여 표기합니다. <br>자세한 내용은 표 하단의 TCP flags를 참고하세요.                                                            |
+| 15 | packets | 수집 간격 동안 확인된 패킷 개수 | Integer                                                                                                     |                                                                                                                                                    | 
+| 16 | bytes | 수집 간격 동안 확인된 패킷 크기 총합 | Byte                                                                                                        |                                                                                                                                                    |
+| 17 | direction | 수집된 5-tuple의 패킷 흐름 방향 | `ingress`, `egress` 또는 `unknown`                                                                            |                                                                                                                                                    |
+| 18 | filter | 수집된 5-tuple의 Security Groups 판정 결과 | `ACCEPT` 또는 `DROP`                                                                                          |
+| 19 | transithub_drop_no_route_packets | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷의 수 | Integer                                                                                                     | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다.                                                                                                   |
+| 20 | transithub_drop_no_route_bytes | 라우팅 경로가 없어 트랜짓 허브 라우터가 드랍한 패킷 크기의 총합 | Byte                                                                                                        | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다.                                                                                                   |
+| 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer                                                                                                     | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다.                                                                                                   |
+| 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte                                                                                                        | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1으로 표기됩니다.                                                                                                   |
+| 23 | status | 로그 상태 | `OK` 또는 `SKIPDATA` 또는 `NODATA`                                                                              | * OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다. <br> * NODATA: 해당 수집 간격 내에 수집된 데이터가 없습니다. |
 
 
 ### TCP Flag

@@ -19,9 +19,9 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 
 * 파일 저장 경로: 현재는 Object Storage만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, path를 한 번에 입력합니다.
     * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * 예를 들어 OBS https endpoint가 `https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Path가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
+    * 예를 들어 OBS https endpoint가 `https://kr1-api-object-storage.nhncloudservice.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Path가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
 
-    * 파일 저장 경로 예시: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
+    * 파일 저장 경로 예시: https://kr1-api-object-storage.nhncloudservice.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 
 
 > [주의] Object Storage에 사용자가 지정한 container가 존재하지 않거나 권한이 올바르게 설정되어 있지 않으면 플로우 로그는 오류 상태로 전환됩니다. 오류 원인은 플로우 로그 보기 화면에서 상태에 마우스를 올리면 확인할 수 있습니다.

@@ -10,7 +10,7 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 
 * 이름: 플로우 로그의 이름을 입력합니다.
 * 설명: 플로우 로그에 대한 설명을 기술합니다.
-* 수집 대상: 플로우 로그 수집 단위를 선택할 수 있습니다. `VPC`, `Subnet`, `네트워크 인터페이스` 단위로 생성할 수 있습니다. 이곳에서 내 프로젝트에 존재하는 VPC, Subnet 네트워크 인터페이스 목록을 확인할 수 있으며, 원하는 수집 단위로 선택할 수 있습니다.
+* 수집 대상: 플로우 로그 수집 단위를 선택할 수 있습니다. `VPC`, `Subnet`, `네트워크 인터페이스` 단위로 생성할 수 있습니다. 이곳에서 내 프로젝트에 존재하는 VPC, Subnet 네트워크 인터페이스 목록을 확인할 수 있으며, 원하는 수집 단위를 선택할 수 있습니다.
 * 수집 트래픽 유형: **허용**, **차단**, 또는 허용과 차단을 동시에 선택할 수 있습니다. 허용을 선택하면 **Security Groups**에 허용된 패킷만 수집하며, 차단을 클릭하면 차단된 패킷만 수집합니다. 둘 다 선택하면 허용/차단 패킷을 모두 수집하여 집계합니다.
 
 * 연결 시도 패킷만 수집: 해당 설정을 체크하면 연결이 수립된 이후의 패킷은 수집하지 않습니다. TCP의 경우 TCP state가 established인 패킷을, UDP/ICMP의 경우에는 response 패킷을 수집하지 않습니다.
@@ -19,7 +19,7 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 
 * 파일 저장 경로: 현재는 Object Storage만 지원합니다. **Object Storage**의 경우에는 OBS endpoint, AUTH_tenant, container, path를 한 번에 입력합니다.
     * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * 예를 들어 OBS https endpoint가 `https://kr1-api-object-storage.nhncloudservice.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container의 이름이 `flowlog_container`, 희망하는 저장 Path가 `example/my/folder`인 경우의 파일 저장 경로는 다음과 같습니다.
+    * 예를 들어 OBS https endpoint가 `https://kr1-api-object-storage.nhncloudservice.com/v1`, AUTH_OBS_TENANT가 `AUTH_e670167936434f85a03694184000ffe6`, Container 이름이 `flowlog_container`, 희망하는 저장 경로가 `example/my/folder`인 경우, 파일 저장 경로는 다음과 같습니다.
 
     * 파일 저장 경로 예시: https://kr1-api-object-storage.nhncloudservice.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 

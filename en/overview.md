@@ -5,9 +5,9 @@ The Flow Log service provides statistics by analyzing packets entering and leavi
 
 ### Main Features
 
-* The Flow Log service examines the headers of all packets going to and from a network interface (currently only the instance's network interface is available).
+* The flow log service examines the headers of all packets going to and from a network interface. Currently, it only provides functionality for an instance's network interface and transit hub attachments.
 
-* However, headers are inspected and statistics are provided only if the L2 type is Ethernet, the L3 type is IPv4, and the L4 type is TCP/UDP/ICMP. Inspected packets are aggregated based on 5-tuples. 
+* However, headers are inspected and statistics are provided only if the L2 type is Ethernet, L3 type is IPv4, and L4 type is TCP/UDP/ICMP. Inspected packets are aggregated based on 5-tuples.
 * Currently, the Flow Log service utilizes **Object Storage** as its storage. At each collection interval you set, a file is created in Object Storage (OBS), which you can download to see the actual statistics.
 
 * You can check the statistics to see if **Security Groups** are set up correctly, detect external intrusion attempts, and more.
@@ -16,6 +16,8 @@ The Flow Log service provides statistics by analyzing packets entering and leavi
 ### Service Targets
 
 * To collect/view connection information, statistics, etc. of packets coming in and out of ports on your instance.
+
+* If you want to collect/view connection information, statistics, etc. of packets flowing to a network service you're using
 
 * To collect/view connection information, statistics of packets allowed or blocked by **Security Groups** settings.
 
@@ -41,21 +43,26 @@ Describes the resources and terminology used by the Flow Log service.
 | 1| timestamp_start | When the 5-tuple was first inspected | UNIX TIMESTAMP |  |
 | 2| timestamp_end | The last time the 5-tuple was inspected | UNIX TIMESTAMP | |
 | 3| interface_id | Network Interface ID | UUID |  |
-| 4| vm_id | The ID of the instance that owns the network interface | UUID | |
-| 5| subnet_id | The ID of the subnet that owns the network interface | UUID | |
-| 6| vpc_id | The ID of the VPC that owns the network interface | UUID | |
-| 7| region | Regions |  `KR1` \| `KR2`  | \* KR1: Korea (Pangyo) <br> \* KR2: Korea (Pyeongchon) |
-| 8| protocol | Protocol number from the 5-tuple | Represents the protocol number assigned by IANA. <br> \* Each number corresponds to a protocol - 1: ICMP, 6: UDP, 17: TCP <br> \* Nothing else is collected.|
-| 9| src_addr | Source address | IPv4 address | |
-| 10| dst_addr | Destination address | IPv4 address |
-| 11 | src_port | Source port number| Integer | ICMP is assumed to be zero. |
-| 12 | dst_port | Destination port number | Integer | ICMP is assumed to be zero. |
-| 13 | tcp_flag | TCP flag | Integer | The TCP flag processes the packets captured within the collection interval with `bitwise OR`. <br>See the TCP flags at the bottom of the table for more information. |
-| 14 | packets | Number of packets inspected during the collection interval | Integer | | 
-| 15 | bytes | Total packet size inspected during the collection interval | Byte | |
-| 16 | direction | Packet flow direction of the collected 5-tuple | `ingress`, `egress`, or `unknown` | |
-| 17 | filter | Security Groups results for the collected 5-tuple | `ACCEPT` or `DROP` |
-| 18 | String | Log Status | `OK` or `SKIPDATA` |\* OK: 5-tuple logged successfully. <br> \* SKIPDATA: There are packets that were not collected during the collection interval because they exceeded the internal capacity provided by the flow log.|
+| 4| owner_type | Type of the equipment that own network interfaces | `instance` or `transithub_attachment` | |
+| 5| owner_id | ID of  the equipment that owns network interfaces | UUID | |
+| 6| subnet_id | ID of the subnet that owns the network interface. | UUID | |
+| 7| vpc_id | ID of the VPC that owns the network interface. | UUID | |
+| 8| region | Region information | `KR1` or `KR2`  | KR1: Korea (Pangyo) Region <br> KR2 - Korea (Pyeongchon) Region |
+| 9| protocol | Protocol number from the 5-tuple | Represents the protocol number assigned by IANA. <br> * Each number corresponds to a different protocol: 1: ICMP, 6: TCP, 17: UDP <br> * Anything else is not collected.|
+| 10 | src_addr | Source address | IPv4 address | |
+| 11 | dst_addr | Destination address | IPv4 address |
+| 12 | src_port | Source port number| Integer | ICMP is assumed to be 0. |
+| 13 | dst_port | Destination port number | Integer | ICMP is assumed to be 0. |
+| 14 | tcp_flag | TCP flag | Integer | The TCP flag is a `bitwise OR` of the packets captured within the collection interval. <br>For more information, see TCP flags at the bottom of the table. |
+| 15 | packets | Number of packets seen during the collection interval | Integer | | 
+| 16 | bytes | The total packet size seen during the collection interval. | Byte | |
+| 17 | direction | Packet flow direction of collected 5-tuples | `ingress`, `egress`, or `unknown` | |
+| 18 | filter | Security Groups results for the collected 5-tuple | `ACCEPT` or `DROP` |
+| 19 | transithub_drop_no_route_packets | Number of packets dropped by the Transit Hub router due to lack of a routing path | Integer | This is specific to transit hubs; non-transit hub interfaces are denoted by -1. |
+| 20 | transithub_drop_no_route_bytes | The total size of packets dropped by the transit hub router due to lack of a routing path. | Byte | This is specific to transit hubs; non-transit hub interfaces are denoted by -1. |
+| 21 | transithub_drop_black_hole_packets | Number of packets dropped because they were determined to be black hole routing on the transit hub router | Integer | This is specific to transit hubs; non-transit hub interfaces are denoted by -1. |
+| 22 | transithub_drop_black_hole_bytes | The sum of the packet sizes dropped by the transit hub router because it was determined to be black hole routing. | Byte | This is specific to transit hubs; non-transit hub interfaces are denoted by -1. |
+| 23 | String | Log status | `OK` or `SKIPDATA` or `NODATA`                                                                              | * OK: 5-tuple logged successfully. <br> * SKIPDATA: There are packets that were not collected during that collection interval because they exceeded the internal capacity provided by the flow log. <br> * NODATA: No data was collected within that collection interval. |
 
 
 ### TCP Flags
@@ -89,3 +96,9 @@ Describes the resources and terminology used by the Flow Log service.
 * Traffic communicating to 169.254.169.0/24 to determine the health of the instance is not logged.
 * Traffic mirroring is not logged.
 * ARP packet is not logged.
+
+### Cautions by specifying flow logs in transit hub attachment
+
+* Multicast traffic on a transit hub records only packets that are ingressing through the transit hub, relative to the transit hub. The traffic does not record multicast traffic that is egressing through one or multiple attachments.
+* All packets that flowed through the transit hub are logged once in `ACCEPT`, regardless of whether they were dropped by the transit hub router or not. Packets that are actually dropped by the transit hub router are logged with `DROP` on a separate line.
+* The Transit Hub is not affected by the `connection setup only` option and will collect all packets regardless of connection status.

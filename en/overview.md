@@ -43,11 +43,6 @@ Describes the resources and terminology used by the Flow Log service.
 | 1| timestamp_start | When the 5-tuple was first inspected | UNIX TIMESTAMP |  |
 | 2| timestamp_end | The last time the 5-tuple was inspected | UNIX TIMESTAMP | |
 | 3| interface_id | Network Interface ID | UUID |  |
- Number | Field | Description | Unit | Remarks | 
-| --- | --- | --- | --- | --- | 
-| 1| timestamp_start |  | UNIX TIMESTAMP |  |
-| 2| timestamp_end |  | UNIX TIMESTAMP | |
-| 3| interface_id |  | UUID |  |
 | 4| owner_type | Type of the equipment that own network interfaces | `instance` or `transithub_attachment` | |
 | 5| owner_id | ID of  the equipment that owns network interfaces | UUID | |
 | 6| subnet_id | ID of the subnet that owns the network interface. | UUID | |

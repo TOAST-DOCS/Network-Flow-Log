@@ -10,7 +10,7 @@ After you click the **Create Flow Log** button, you can set basic information ab
 
 * Name: Enter a name for the flow log.
 * Description: Describe the flow log.
-* Collect Target: Allow you to select the flow log collection unit. Currently, you can only create `network interface` units. Here you can see a list of network interfaces that exist in your project, and select the one you want to collect.
+* Collect Target: Allow you to select the flow log collection unit. Currently, you can create `VPC`, `Subnet`, `network interface` units. Here you can see VPC, subnet, a list of network interfaces that exist in your project, and select the collection unit type you want to collect.
 * Type of Traffic Collected: You can select **Allow**, **Block**, or both. If you select Allow, only packets allowed to **Security Groups** are collected; if you click Block, only blocked packets are collected. If you select both, both allowed and blocked packets are collected and aggregated.
 
 * Collect only connection attempt packets: If checked, packets after the connection is established are not collected. For TCP, packets with the TCP state established are not collected, and for UDP/ICMP, response packets are not collected.
@@ -18,10 +18,9 @@ After you click the **Create Flow Log** button, you can set basic information ab
 * Collection Item: Select an item to collect. If basic item is selected, only required items are collected and logged in files. More items can be selected in custom items. For supported items, see Statistics Information Items in [Flow Log Overview](/Network/Flow%20Log/en/overview/).
 * File Storage Path: Currently, only Object Storage is supported. For **Object Storage**, enter the OBS endpoint, AUTH_tenant, container, and path at once.
     * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * For example, if the OBS https endpoint is `https://api-storage.cloud.toast.com/v1,` the AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, the Container is named `flowlog_container`, and the desired save path is `example/my/folder,` then File Storage Path you need to enter would look like as below.
+        * For example, if your OBS https endpoint is `https://kr1-api-object-storage.nhncloudservice.com/v1`, your AUTH_OBS_TENANT is `AUTH_e670167936434f85a03694184000ffe6`, your Container name is `flowlog_container`, and your desired save path is `example/my/folder`, the file save path would look like this
 
-    * Example File Storage Path: https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
-
+    * Example File Storage Path: https://kr1-api-object-storage.nhncloudservice.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 
 > [Caution] If the container specified does not exist in Object Storage, or if permissions are not set correctly, the flow log enters an error state. You can see the error by hovering over the status on the Flow Log List screen.
 
@@ -71,4 +70,6 @@ If you created a flow log with the storage type specified as object storage (OBS
 * Enter the tenant ID and API user ID from the **Flow Log System Account Information** identified above, and grant **Write** permission.
 
 > [Note] When a flow log is created, it sends a 0 Bytes file (dummy file) to the first-time user's OBS storage. This verifies that access permissions are set correctly. This dummy file is deleted after a short period of time.
-
+> [Note] If the number of lines in a file stored in Object Storage exceeds 20,000 lines, the lines are split and stored. 
+> 20,000 lines or less: Save as a single file 
+> More than 20,000 lines: Split into multiple files suffixed with _part1, _part2, etc.

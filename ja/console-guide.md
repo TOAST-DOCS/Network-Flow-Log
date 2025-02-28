@@ -10,7 +10,7 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 
 * 名前：フローログの名前を入力します。
 * 説明：フローログの説明を記述します。
-* 収集対象：フローログの収集単位を選択できます。現在は`ネットワークインターフェイス`単位のみ作成できます。ここでは、マイプロジェクトに存在するネットワークインターフェイスリストを確認することができ、収集したいネットワークインターフェイスを選択できます。
+* 収集対象：フローログの収集単位を選択できます。`VPC`, `Subnet`, `ネットワークインターフェイス`単位で作成できます。ここでマイプロジェクトに存在するVPC, Subnetネットワークインターフェイスリストを確認し、収集単位を選択できます。
 * 収集トラフィックタイプ：**許可**、**ブロック**、または許可とブロックを同時に選択できます。許可を選択すると、**Security Groups**に許可されたパケットのみを収集し、**ブロック**をクリックすると、ブロックされたパケットのみを収集します。両方を選択すると、許可/ブロックされたパケットをすべて収集して集計します。
 
 * 接続試行パケットのみ収集:この設定をチェックすると、接続が確立された後のパケットは収集しません。TCPの場合はTCP stateが確立されたパケットを、UDP/ICMPの場合はresponseパケットを収集しません。
@@ -19,9 +19,9 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 
 * ファイル保存パス：現在はObject Storageのみをサポートしています。**Object Storage**の場合は、OBS endpoint、AUTH_tenant、container、pathを一度に入力します。
     * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}
-    * 例えば、OBS https endpointが`https://api-storage.cloud.toast.com/v1`, AUTH_OBS_TENANTが`AUTH_e670167936434f85a03694184000ffe6`, Containerの名前が`flowlog_container`、希望する保存Pathが`example/my/folder`の場合のファイル保存パスは次のとおりです。
+    * 例えば、OBS https endpointが`https://kr1-api-object-storage.nhncloudservice.com/v1`, AUTH_OBS_TENANTが`AUTH_e670167936434f85a03694184000ffe6`, Container名が`flowlog_container`、希望する保存パスが`example/my/folder`の場合、ファイル保存パスは次のとおりです。
 
-    * ファイル保存パスの例：https://api-storage.cloud.toast.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
+    * ファイル保存パスの例：https://kr1-api-object-storage.nhncloudservice.com/v1/AUTH_e670167936434f85a03694184000ffe6/flowlog_container/example/my/folder
 
 
 > [注意] Object Storageにユーザーが指定したコンテナが存在しないか、権限が正しく設定されていない場合、フローログはエラー状態になります。エラーの原因は、フローログ表示画面でステータスにマウスを乗せると確認できます。
@@ -72,3 +72,6 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 * 上記で確認した**フローログシステムアカウント情報**のテナントIDとAPIユーザーIDを入力し、**Write**権限を付与します。
 
 > [参考]フローログが作成された場合、最初に1回、ユーザーのOBSストレージに0Bytesファイル(ダミーファイル)を送信します。これにより、アクセス権限が正しく設定されたかどうかを検証します。このダミーファイルは短時間で削除されます。
+> [参考] Object Storageに保存されるファイルの行数が20,000行を超えると、分割して保存されます。
+> 20,000行以下:単一ファイルで保存 
+> 20,000行超過: _part1、_part2などのサフィックスが付いた複数のファイルに分割保存

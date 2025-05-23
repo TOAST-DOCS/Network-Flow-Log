@@ -35,7 +35,8 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
     * {storage_url}/#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}
     * 예: 1시간 마다로 설정 시, example/my/folder/2024/09/01/22 폴더 하위에 22시 00분~22시 59분에 해당하는 플로우 로그 파일들을 저장
     * 예: 1일 마다로 설정 시, example/my/folder/2024/09/01 폴더 하위에 9월 1일의 플로우 로그 파일들을 저장
-    * 예: 사용자 정의 경로로 설정 시, 원하는 포맷을 직접 작성할 수 있습니다. 템플릿 변수로서 #{year}, #{month}, #{day}, #{hour}를 사용할 수 있습니다. <br> e.g.) 사용자 정의 경로를 `YEAR=#{year}/MONTH=#{month}/DAY=#{day}`로 생성 시, example/my/folder/YEAR=2024/MONTH=09/DAY=01 폴더 하위에 2024년 9월 1일의 플로우 로그 파일들을 저장
+    * 예: 사용자 정의 경로로 설정 시, 원하는 형식을 직접 작성할 수 있습니다. 템플릿 변수로서 #{year}, #{month}, #{day}, #{hour}를 사용할 수 있습니다. <br> e.g.) 사용자 정의 경로를 `YEAR=#{year}/MONTH=#{month}/DAY=#{day}`로 생성 시, example/my/folder/YEAR=2024/MONTH=09/DAY=01 폴더 하위에 2024년 9월 1일의 플로우 로그 파일들을 저장
+
 
 
 * 파일 형식: 저장소에 저장할 파일의 형식입니다. **CSV**, **PARQUET** 파일 형식을 지원합니다. `PARQUET`를 사용하면 큰 파일을 작은 사이즈로 압축할 수 있습니다.

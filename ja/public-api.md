@@ -34,9 +34,10 @@ X-Auth-Token: {tokenId}
 | filter | Query | String | - | 照会するフローログロガーのフィルタ |
 | aggregation_interval | Query | Integer | - | 照会するフローログロガーの集計間隔 |
 | storage_type | Query | String | - | 照会するフローログロガーのストレージタイプ |
-| log_format | Query | String | - | 照会するフローログロガーの保存フォーマット |
+| log_format | Query | String | - | 照会するフローログロガーの保存形式 |
 | compression_type | Query | String | - | 照会するフローログロガーの圧縮タイプ |
 | partitioned_period | Query | String | - | 照会するフローログロガーのパーティション周期 |
+| customized_file_name | Query | String | - | 照会するフローログロガーのファイルタイトル形式 |
 | status | Query | String | - | 照会するフローログロガーの状態 |
 
 #### レスポンス
@@ -50,14 +51,15 @@ X-Auth-Token: {tokenId}
 | flowlog\_loggers.filter | Body | String | フローログロガーの収集対象フィルタ。 `ALL`, `ACCEPT`, `DROP`のいずれか<br>\* `ACCEPT`は通信が許可されたパケットのみをキャプチャ<br>\* `DROP`は通信がブロックされたパケットのみをキャプチャ<br>\* `ALL`は通信が許可・ブロックされたパケットをすべてキャプチャ |
 | flowlog\_loggers.aggregation\_interval | Body | Integer | フローログロガーが収集したデータを合算・集計してストレージにファイルとして記録する周期。単位は分。ストレージにファイルが該当値を周期で作成される。  |
 | flowlog\_loggers.connection\_setup\_only | Body | Boolean | この値が`true`の場合、接続確立を試みたパケットのみを収集。true`に設定すると、以下のように収集対象が限定されます。<br>\* TCPの場合、TCP stateが確立されている場合は収集しない。<br>\* UDP/ICMPの場合はレスポンスパケットを収集しない |
-| flowlog\_loggers.storage\_type | Body | Boolean | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
-| flowlog\_loggers.storage\_url | Body | Boolean | フローログロガーのストレージアドレス |
-| flowlog\_loggers.log\_format | Body | Boolean | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。 |
-| flowlog\_loggers.compression\_type | Body | Boolean | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。|
+| flowlog\_loggers.storage\_type | Body | String | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
+| flowlog\_loggers.storage\_url | Body | String | フローログロガーのストレージアドレス |
+| flowlog\_loggers.log\_format | Body | String | フローログロガーが保存するファイル形式。 `CSV`, `PARQUET`ファイル形式可能。 |
+| flowlog\_loggers.compression\_type | Body | String | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。|
 | flowlog\_loggers.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。<br>\* Flow Logがサポートするフィールドは、ユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
-| flowlog\_loggers.partition\_period | Body | Boolean | フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。 <br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
+| flowlog\_loggers.partition\_period | Body | String | フローログロガーがストレージにファイルを保存する際のフォルダ作成構造を意味します。`HOUR`と`DAY`をサポート。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}`フォルダを作成し、日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}/#{hour}`までフォルダを作成し、時間ごとに区切る<br> \* その他のユーザー定義形式の場合は #{year}, month}, #{month}, #{day}, #{hour}に時間が記入されます。|
+| flowlog\_loggers.customized_file_name | Body | String | フローログロガーがストレージにファイルを保存する際のファイルタイトルの形式。<br> \* デフォルト値は#{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog\_loggers.admin\_state\_up | Body | Boolean | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。|
-| flowlog\_loggers.description | Body | Boolean | フローログロガーの説明 |
+| flowlog\_loggers.description | Body | String | フローログロガーの説明 |
 | flowlog\_loggers.status | Body | Enum | フローログロガーの状態 |
 | flowlog\_loggers.created_at | Body | Date | フローログロガーを作成した時間 |
 | flowlog\_loggers.updated_at | Body | Date | フローログロガーが修正された時間 |
@@ -150,14 +152,15 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.filter | Body | String | フローログロガーの収集対象フィルタ。 `ALL`, `ACCEPT`, `DROP`のいずれか<br>\* `ACCEPT`は通信が許可されたパケットのみをキャプチャ<br>\* `DROP`は通信がブロックされたパケットのみをキャプチャ<br>\* `ALL`は通信が許可・ブロックされたパケットをすべてキャプチャ |
 | flowlog\_logger.aggregation\_interval | Body | Integer | フローログロガーが収集したデータを合算・集計してストレージにファイルとして記録する周期。単位は分。ストレージにファイルが該当値を周期で作成される。  |
 | flowlog\_logger.connection\_setup\_only | Body | Boolean | この値が`true`の場合、接続確立を試みたパケットのみを収集。true`に設定すると、以下のように収集対象が限定されます。<br>\* TCPの場合、TCP stateが確立されている場合は収集しない。<br>\* UDP/ICMPの場合はレスポンスパケットを収集しない |
-| flowlog\_logger.storage\_type | Body | Boolean | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
-| flowlog\_logger.storage\_url | Body | Boolean | フローログロガーのストレージアドレス |
-| flowlog\_logger.log\_format | Body | Boolean | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。 |
-| flowlog\_logger.compression\_type | Body | Boolean | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
+| flowlog\_logger.storage\_type | Body | String | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
+| flowlog\_logger.storage\_url | Body | String | フローログロガーのストレージアドレス |
+| flowlog\_logger.log\_format | Body | String | フローログロガーが保存するファイル形式。 `CSV`, `PARQUET`ファイル形式可能。 |
+| flowlog\_logger.compression\_type | Body | String | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
 | flowlog\_logger.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。<br>\* Flow Logがサポートするフィールドは、ユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
-| flowlog\_logger.partition\_period | Body | Boolean | フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。 <br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
+| flowlog\_logger.partition\_period | Body | String | フローログロガーがストレージにファイルを保存する際のフォルダ作成構造を意味します。`HOUR`と`DAY`をサポート。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}`フォルダを作成し、日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}/#{hour}`までフォルダを作成し、時間ごとに区切る<br> \* その他のユーザー定義形式の場合は #{year}, month}, #{month}, #{day}, #{hour}に時間が記入されます。|
+| flowlog\_logger.customized_file_name | Body | String | フローログロガーがストレージにファイルを保存する際のファイルタイトルの形式。<br> \* デフォルト値は#{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。|
-| flowlog\_logger.description | Body | Boolean | フローログロガーの説明 |
+| flowlog\_logger.description | Body | String | フローログロガーの説明 |
 | flowlog\_logger.status | Body | Enum | フローログロガーの状態 |
 | flowlog\_logger.created_at | Body | Date | フローログロガーを作成した時間 |
 | flowlog\_logger.updated_at | Body | Date | フローログロガーが修正された時間 |
@@ -217,14 +220,15 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.filter | Body | String | フローログロガーの収集対象フィルタ。 `ALL`, `ACCEPT`, `DROP`のいずれかデフォルト値は`ALL`。<br>\* `ACCEPT`は通信が許可されたパケットのみをキャプチャ<br>\* `DROP`は通信がブロックされたパケットのみをキャプチャ<br>\* `ALL`は通信が許可・ブロックされたパケットをすべてキャプチャ |
 | flowlog\_logger.aggregation\_interval | Body | Integer |  | フローログロガーが収集したデータを合算・集計してストレージにファイルとして記録する周期。単位は分。ストレージにファイルが該当値を周期で作成される。デフォルト値は10分。|
 | flowlog\_logger.connection\_setup\_only | Body | Boolean | この値が`true`の場合、接続確立を試みたパケットのみを収集。true`に設定すると、以下のように収集対象が限定されます。デフォルト値は`false`<br>\* TCPの場合、TCP stateが確立されている場合は収集しない。<br>\* UDP/ICMPの場合はレスポンスパケットを収集しない |
-| flowlog\_logger.storage\_type | Body | Boolean | O | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
-| flowlog\_logger.storage\_url | Body | Boolean | O | フローログロガーのストレージアドレス。ストレージタイプが`OBS`の場合は`https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`をすべて入力する必要がある。|
-| flowlog\_logger.log\_format | Body | Boolean |  | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。デフォルト値は`CSV`。 |
-| flowlog\_logger.compression\_type | Body | Boolean |  | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。デフォルト値は`RAW`。 |
+| flowlog\_logger.storage\_type | Body | String | O | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
+| flowlog\_logger.storage\_url | Body | String | O | フローログロガーのストレージアドレス。ストレージタイプが`OBS`の場合は`https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`をすべて入力する必要がある。|
+| flowlog\_logger.log\_format | Body | String |  | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。デフォルト値は`CSV`。 |
+| flowlog\_logger.compression\_type | Body | String |  | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。デフォルト値は`RAW`。 |
 | flowlog\_logger.customized_field | Body | String |  | フローログロガーがファイルに記録するフィールド。<br>\* 次の例のようにカンマ区切り形式で作成した場合のみ順序の影響を受ける。<br>\* Flow LogがサポートするフィールドはユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
-フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。デフォルト値は`DAY`。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
-| flowlog\_logger.admin\_state\_up | Body | Boolean |  | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。デフォルト値は`true`。|
-| flowlog\_logger.description | Body | Boolean |  | フローログロガーの説明 |
+| flowlog\_logger.partition\_period | Body | String | | フローログロガーがストレージにファイルを保存する際のフォルダ作成構造を意味します。`HOUR`と`DAY`をサポート。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}`フォルダを作成し、日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}/#{hour}`までフォルダを作成し、時間ごとに区切る<br> \* その他のユーザー定義形式の場合は #{year}, month}, #{month}, #{day}, #{hour}に時間が記入される <br> \* ユーザー定義形式は、数字、英語及び一部の特殊記号（/,-,_,： ,=)のみの入力が可能。`/`を入力するとフォルダを区切る。<br> \* e.g.) `year=#{year}/month=#{month}/day=#{day}`と入力すると、`year=2024/month=09/day=01`フォルダの下に2024年9月1日のフローログファイルを保存|
+| flowlog\_logger.customized_file_name | Body | String | | フローログロガーがストレージにファイルを保存する際のファイルタイトルの形式。<br> \* デフォルト値は #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST <br> \* #{logger_id}, #{year}, #{month}, #{day}, #{hour}, #{minute}, #{second}のテンプレート変数をそれぞれ1回ずつ利用して、フローロガーファイルのタイトルを直接定義できます。|
+| flowlog\_logger.admin\_state\_up | Body | Boolean |  | フローログロガーの有効化状態。 `false`の場合は収集しない。デフォルト値は`true`。 |
+| flowlog\_logger.description | Body | String |  | フローログロガーの説明 |
 
 <details>
   <summary>例</summary>
@@ -263,14 +267,15 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.filter | Body | String | フローログロガーの収集対象フィルタ。 `ALL`, `ACCEPT`, `DROP`のいずれか<br>\* `ACCEPT`は通信が許可されたパケットのみをキャプチャ<br>\* `DROP`は通信がブロックされたパケットのみをキャプチャ<br>\* `ALL`は通信が許可・ブロックされたパケットをすべてキャプチャ |
 | flowlog\_logger.aggregation\_interval | Body | Integer | フローログロガーが収集したデータを合算・集計してストレージにファイルとして記録する周期。単位は分。ストレージにファイルが該当値を周期で作成される。  |
 | flowlog\_logger.connection\_setup\_only | Body | Boolean | この値が`true`の場合、接続確立を試みたパケットのみを収集。true`に設定すると、以下のように収集対象が限定されます。<br>\* TCPの場合、TCP stateが確立されている場合は収集しない。<br>\* UDP/ICMPの場合はレスポンスパケットを収集しない |
-| flowlog\_logger.storage\_type | Body | Boolean | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
-| flowlog\_logger.storage\_url | Body | Boolean | フローログロガーのストレージアドレス |
-| flowlog\_logger.log\_format | Body | Boolean | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。 |
-| flowlog\_logger.compression\_type | Body | Boolean | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
+| flowlog\_logger.storage\_type | Body | String | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
+| flowlog\_logger.storage\_url | Body | String | フローログロガーのストレージアドレス |
+| flowlog\_logger.log\_format | Body | String | フローログロガーが保存するファイル形式。 `CSV`, `PARQUET`ファイル形式可能。 |
+| flowlog\_logger.compression\_type | Body | String | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
 | flowlog\_logger.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。<br>\* Flow LogがサポートするフィールドはユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
-| flowlog\_logger.partition\_period | Body | Boolean | フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。 <br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
+| flowlog\_logger.partition\_period | Body | String | フローログロガーがストレージにファイルを保存する際のフォルダ作成構造を意味する。HOUR`と`DAY`をサポート。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}`フォルダを作成し、日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}/#{hour}`までフォルダを作成し、時間ごとに区切る<br> \* その他のユーザー定義形式の場合は #{year}, month}, #{month}, #{day}, #{hour}に時間が記入されます。|
+| flowlog\_logger.customized_file_name | Body | String | フローログロガーがストレージにファイルを保存する際のファイルタイトルの形式。<br> \* デフォルト値は#{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。|
-| flowlog\_logger.description | Body | Boolean | フローログロガーの説明 |
+| flowlog\_logger.description | Body | String | フローログロガーの説明 |
 | flowlog\_logger.status | Body | Enum | フローログロガーの状態 |
 | flowlog\_logger.created_at | Body | Date | フローログロガーを作成した時間 |
 | flowlog\_logger.updated_at | Body | Date | フローログロガーが修正された時間 |
@@ -327,7 +332,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger | Body | Object | O | フローログロガー情報オブジェクト |
 | flowlog\_logger.name | Body | String | O | フローログロガーの名前 |
 | flowlog\_logger.admin\_state\_up | Body | Boolean |  | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。デフォルト値は`true`。|
-| flowlog\_logger.description | Body | Boolean |  | フローログロガーの説明 |
+| flowlog\_logger.description | Body | String |  | フローログロガーの説明 |
 
 <details>
   <summary>例</summary>
@@ -355,14 +360,15 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.filter | Body | String | フローログロガーの収集対象フィルタ。 `ALL`, `ACCEPT`, `DROP`のいずれか<br>\* `ACCEPT`は通信が許可されたパケットのみをキャプチャ<br>\* `DROP`は通信がブロックされたパケットのみをキャプチャ<br>\* `ALL`は通信が許可・ブロックされたパケットをすべてキャプチャ |
 | flowlog\_logger.aggregation\_interval | Body | Integer | フローログロガーが収集したデータを合算・集計してストレージにファイルとして記録する周期。単位は分。ストレージにファイルが該当値を周期で作成される。  |
 | flowlog\_logger.connection\_setup\_only | Body | Boolean | この値が`true`の場合、接続確立を試みたパケットのみを収集。true`に設定すると、以下のように収集対象が限定されます。<br>\* TCPの場合、TCP stateが確立されている場合は収集しない。<br>\* UDP/ICMPの場合はレスポンスパケットを収集しない |
-| flowlog\_logger.storage\_type | Body | Boolean | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
-| flowlog\_logger.storage\_url | Body | Boolean | フローログロガーのストレージアドレス |
-| flowlog\_logger.log\_format | Body | Boolean | フローログロガーが保存するファイルのフォーマット。 `CSV`, `PARQUET`ファイル形式可能。 |
-| flowlog\_logger.compression\_type | Body | Boolean | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
+| flowlog\_logger.storage\_type | Body | String | フローログロガーのストレージタイプ。現在は`OBS`のみサポート。 |
+| flowlog\_logger.storage\_url | Body | String | フローログロガーのストレージアドレス |
+| flowlog\_logger.log\_format | Body | String | フローログロガーが保存するファイル形式。 `CSV`, `PARQUET`ファイル形式可能。 |
+| flowlog\_logger.compression\_type | Body | String | フローログロガーが保存するファイルの圧縮形式。`RAW`, `GZIP`圧縮形式可能。 |
 | flowlog\_logger.customized_field | Body | String | フローログロガーがファイルに記録するフィールド。現在はサポートしない機能。<br>\* Flow LogがサポートするフィールドはユーザーガイドFlow Log概要で統計提供情報のフィールドをご確認ください。|
-| flowlog\_logger.partition\_period | Body | Boolean | フローログロガーがストレージにファイルを保存する際、フォルダ作成構造を意味する。`HOUR`と`DAY`をサポート。 <br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}`フォルダを作成して日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`{YEAR}/{MONTH}/{DAY}/{HOUR}`までフォルダを作成して時間別に区切る |
+| flowlog\_logger.partition\_period | Body | String | フローログロガーがストレージにファイルを保存する際のフォルダ作成構造を意味します。`HOUR`と`DAY`をサポート。<br>\* `DAY`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}`フォルダを作成し、日付を区切る<br>\* `HOUR`を指定すると、ユーザーが入力したstorage\_urlのdirectory-pathの下に`#{year}/#{month}/#{day}/#{hour}`までフォルダを作成し、時間ごとに区切る<br> \* その他のユーザー定義形式の場合は #{year}, month}, #{month}, #{day}, #{hour}に時間が記入されます。|
+| flowlog\_logger.customized_file_name | Body | String | フローログロガーがストレージにファイルを保存する際のファイルタイトルの形式。<br> \* デフォルト値は#{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog\_logger.admin\_state\_up | Body | Boolean | フローログロガーの有効化状態。 `false`の場合、無効になり収集しない。|
-| flowlog\_logger.description | Body | Boolean | フローログロガーの説明 |
+| flowlog\_logger.description | Body | String | フローログロガーの説明 |
 | flowlog\_logger.status | Body | Enum | フローログロガーの状態 |
 | flowlog\_logger.created_at | Body | Date | フローログロガーを作成した時間 |
 | flowlog\_logger.updated_at | Body | Date | フローログロガーが修正された時間 |

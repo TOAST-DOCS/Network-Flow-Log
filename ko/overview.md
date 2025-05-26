@@ -44,7 +44,7 @@
 | 1| timestamp_start | 해당 5-tuple이 처음 확인된 시간 | UNIX TIMESTAMP |  |
 | 2| timestamp_end | 해당 5-tuple이 마지막으로 확인된 시간 | UNIX TIMESTAMP | |
 | 3| interface_id | 네트워크 인터페이스 ID | UUID |  |
-| 4| owner_type | 네트워크 인터페이스를 소유한 장비의 종류 | `instance` 또는 `transithub_attachment` | |
+| 4| owner_type | 네트워크 인터페이스를 소유한 장비의 종류 | `instance`, `transithub_attachment`, `inter_project_peering`, `inter_region_peering`, `colocation_gateway` 또는 `loadbalancer` | |
 | 5| owner_id | 네트워크 인터페이스를 소유한 장비의 ID | UUID | |
 | 6| subnet_id | 네트워크 인터페이스를 소유한 서브넷의 ID | UUID | |
 | 7| vpc_id | 네트워크 인터페이스를 소유한 VPC의 ID | UUID | |

@@ -8,6 +8,7 @@ The Flow Log service provides statistics by analyzing packets entering and leavi
 * The flow log service examines the headers of all packets going to and from a network interface. Currently, it only provides functionality for an instance's network interface and transit hub attachments.
 
 * However, headers are inspected and statistics are provided only if the L2 type is Ethernet, L3 type is IPv4, and L4 type is TCP/UDP/ICMP. Inspected packets are aggregated based on 5-tuples.
+
 * Currently, the Flow Log service utilizes **Object Storage** as its storage. At each collection interval you set, a file is created in Object Storage (OBS), which you can download to see the actual statistics.
 
 * You can check the statistics to see if **Security Groups** are set up correctly, detect external intrusion attempts, and more.
@@ -68,6 +69,7 @@ Describes the resources and terminology used by the Flow Log service.
 ### TCP Flags
 * If the TCP connection is short, the side attempting the TCP Active open may send SYN, FIN within the collection interval. In this case, SYN | FIN (2 | 1 = 3) will be logged. 
 
+
 * Conversely, incoming data may receive SYN | ACK, and FIN within the collection interval. In this case, SYN | ACK | FIN (16 | 2 | 1 = 19) would be logged. 
 
 * Each digit in SYN, ACK, RST, and FIN follows the TCP header tcp flag bit field (RFC 793, section 3.1. Header Format).
@@ -96,9 +98,24 @@ Describes the resources and terminology used by the Flow Log service.
 * Traffic communicating to 169.254.169.0/24 to determine the health of the instance is not logged.
 * Traffic mirroring is not logged.
 * ARP packet is not logged.
+* DROP caused by temporary network congestion on the physical equipment containing the instance or the physical equipment of the network service is not subject to collection.
 
 ### Cautions by specifying flow logs in transit hub attachment
 
 * Multicast traffic on a transit hub records only packets that are ingressing through the transit hub, relative to the transit hub. The traffic does not record multicast traffic that is egressing through one or multiple attachments.
-* All packets that flowed through the transit hub are logged once in `ACCEPT`, regardless of whether they were dropped by the transit hub router or not. Packets that are actually dropped by the transit hub router are logged with `DROP` on a separate line.
+* All packets that flowed through the transit hub are logged once in ACCEPT, regardless of whether they were dropped by the transit hub router or not. Packets that are actually dropped by the transit hub router are logged with DROP on a separate line.
 * The Transit Hub is not affected by the `connection setup only` option and will collect all packets regardless of connection status.
+
+### Cautions when using load balancers with flow logs specified
+
+* The load balancer only collects ACCEPT packets currently. Collection of packets dropped by IPACL set on the load balancer will be supported in the future.
+
+* In addition to packets attempting to access the load balancer and packets between the load balancer and members, we also collect status check packets.
+* Flow logs associated with the service are not affected by `Cconnection Setup Only` option and will collect all packets regardless of the connection state.
+
+### Cautions when using flow logs on peering gateways and colocation gateways
+
+* VPC peering gateway is currently not supported.
+* DROP is not supported because this is not a service that allows users to explicitly set DROP.
+* Flow logs associated with the service are not affected by `Cconnection Setup Only` option and will collect all packets regardless of the connection state.
+

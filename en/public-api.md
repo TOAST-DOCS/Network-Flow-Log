@@ -34,10 +34,11 @@ This API does not require a request body.
 | filter | Query | String | - |  Filters for flow log loggers to look up |
 | aggregation_interval | Query | Integer | - |  Aggregation interval of the flow log logger to look up |
 | storage_type | Query | String | - |  Storage type of flow log logger to look up |
-| log_format | Query | String | - |  Storage format of the flow log logger to look up |
+| log_format | Query | String | - |  Storage type of the flow log logger to look up |
 | compression_type | Query | String | - |  Compression type of the flow log logger to look up |
 | partitioned_period | Query | String | - | Partition period of the flow log logger to look up  |
-| String | Query | String | - | Status of the flow log logger to look up |
+| customized_file_name | Query | String | - | File title format of the flow log logger to look up |
+| status | Query | String | - | Status of the flow log logger to look up |
 
 #### Response
 
@@ -50,14 +51,15 @@ This API does not require a request body.
 | flowlog_loggers.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
 | flowlog_loggers.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at the specified interval.  |
 | flowlog_loggers.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_loggers.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
-| flowlog_loggers.storage_url | Body | Boolean | Storage address of the flow log logger |
-| flowlog_loggers.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_loggers.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
+| flowlog_loggers.storage_type | Body | String | Storage type for the flow log logger. Currently only `OBS` is supported. |
+| flowlog_loggers.storage_url | Body | String | Storage address of the flow log logger |
+| flowlog_loggers.log_format | Body | String | Type of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
+| flowlog_loggers.compression_type | Body | String | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
 | flowlog_loggers.customized_field | Body | String | Fields that the flow log logger will write to a file.  <br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items.|
-| flowlog_loggers.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
+| flowlog_loggers.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `#{YEAR}/#{MONTH}/#{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}`, separated by time. <br> \* For other custom formats, the time is entered in #{year}, #{month}, #{day}, and #{hour}.|
+| flowlog\_loggers.customized_file_name | Body | String | When the flow log logger saves a file to the repository, the format of the file title. <br> \* The default is: #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog_loggers.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
-| flowlog_loggers.description | Body | Boolean | Description of the flow log logger |
+| flowlog_loggers.description | Body | String | Description of the flow log logger |
 | flowlog_loggers.status | Body | Enum | Status of the flow log logger |
 | flowlog_loggers.created_at | Body | Date | Time the flow log logger was created |
 | flowlog_loggers.updated_at | Body | Date | Time the flow log logger was modified |
@@ -150,14 +152,15 @@ This API does not require a request body.
 | flowlog_logger.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
 | flowlog_logger.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at the specified interval.  |
 | flowlog_logger.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_logger.storage_type | Body | Boolean | Storage type for the flow log logger. Currently only `OBS` is supported. |
-| flowlog_logger.storage_url | Body | Boolean | Storage address of the flow log logger |
-| flowlog_logger.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_logger.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type.  |
+| flowlog_logger.storage_type | Body | String | Storage type for the flow log logger. Currently only `OBS` is supported. |
+| flowlog_logger.storage_url | Body | String | Storage address of the flow log logger |
+| flowlog_logger.log_format | Body | String | Type of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
+| flowlog_logger.compression_type | Body | String | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
 | flowlog_logger.customized_field | Body | String | Fields that the flow log logger will write to a file. <br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items. |
-| flowlog_logger.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
+| flowlog_logger.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `#{YEAR}/#{MONTH}/#{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}`, separated by time. <br> \* For other custom formats, the time is entered in #{year}, #{month}, #{day}, and #{hour}.|
+| flowlog\_logger.customized_file_name | Body | String | When the flow log logger saves a file to the repository, the format of the file title. <br> \* The default is: #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog_logger.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
-| flowlog_logger.description | Body | Boolean | Description of the flow log logger |
+| flowlog_logger.description | Body | String | Description of the flow log logger |
 | flowlog_logger.status | Body | Enum | Status of the flow log logger |
 | flowlog_logger.created_at | Body | Date | Time the flow log logger was created |
 | flowlog_logger.updated_at | Body | Date | Time the flow log logger was modified |
@@ -210,21 +213,22 @@ X-Auth-Token: {tokenId}
 | Name | Type | Format | Required | Description |
 | --- | --- | --- | --- | --- |
 | tokenId | Header | String | O | Token ID |
-| flowlog_logger | Body | Object | O | Flow log logger information object |
-| flowlog_logger.name | Body | String | O | Flow log logger name |
-| flowlog_logger.resource_type | Body | String |  | The type of resource the flow log logger collects. One of `VPC`, `SUBNET`, or `PORT`. If not entered, `PORT` is set. |
-| flowlog_logger.resource_id | Body | UUID | O | Flow log logger's collection target resource ID |
-| flowlog_logger.filter | Body | String |  | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. The default is `ALL`.<br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
-| flowlog_logger.aggregation_interval | Body | Integer |  | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. Files are created to storage at intervals of that value. The default is 10 minutes. |
-| flowlog_logger.connection_setup_only | Body | Boolean |  | If `true`, collect only packets that attempted to establish a connection. When set to `true`, the collection is limited as follows. The default is `false`.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_logger.storage_type | Body | Boolean | O | Storage type for the flow log logger. Currently, only `OBS` is supported. |
-| flowlog_logger.storage_url | Body | Boolean | O | The storage address of the flow log logger. If the storage type is `OBS`, you must enter all of `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`. |
-| flowlog_logger.log_format | Body | Boolean |  | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. The default is `CSV`. |
-| flowlog_logger.compression_type | Body | Boolean |  | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. The default is `RAW`. |
-| flowlog_logger.customized_field | Body | String |  | Fields for the flow log logger to write to a file, <br>\* Must be written in comma-separated form, as shown in the example below, and is affected by order<br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items. |
-| flowlog_logger.partition_period | Body | Boolean |  | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. The default is `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url entered by the user.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url entered, up to {YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
-| flowlog_logger.admin_state_up | Body | Boolean |  | Enable status of the flow log logger. If `false`, it is disabled and does not collect. Default is `true`. |
-| flowlog_logger.description | Body | Boolean |  | Description of the flow log logger |
+| flowlog\_logger | Body | Object | O | Flow log logger information object |
+| flowlog\_logger.name | Body | String | O | Flow log logger name |
+| flowlog\_logger.resource_type | Body | String |  | The type of resource the flow log logger collects. One of `VPC`, `SUBNET`, or `PORT`. If not entered, `PORT` is set. |
+| flowlog\_logger.resource_id | Body | UUID | O | Flow log logger's collection target resource ID |
+| flowlog\_logger.filter | Body | String |  | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. The default is `ALL`.<br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
+| flowlog\_logger.aggregation_interval | Body | Integer |  | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. Files are created to storage at intervals of that value. The default is 10 minutes. |
+| flowlog\_logger.connection_setup_only | Body | Boolean |  | If `true`, collect only packets that attempted to establish a connection. When set to `true`, the collection is limited as follows. The default is `false`.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
+| flowlog\_logger.storage_type | Body | String | O | Storage type for the flow log logger. Currently, only `OBS` is supported. |
+| flowlog\_logger.storage_url | Body | String | O | The storage address of the flow log logger. If the storage type is `OBS`, you must enter all of `https://{object-storage-endpoint}/{AUTH-id}/{container}/{directory-path}`. |
+| flowlog\_logger.log_format | Body | String |  | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. The default is `CSV`. |
+| flowlog\_logger.compression_type | Body | String | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
+| flowlog\_logger.customized_field | Body | String |  | Fields for the flow log logger to write to a file, <br>\* Must be written in comma-separated form, as shown in the example below, and is affected by order<br>\*For the fields supported by Flow Log, see the Flow Log overview for fields in Statistical Information Items. |
+| flowlog\_logger.partition\_period | Body | String |  | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `#{YEAR}/#{MONTH}/#{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}`, separated by time. <br> \* For other custom formats, the time is entered in #{year}, #{month}, #{day}, and #{hour}. <br> \* Custom format only allows input of numbers, English characters, and some special characters (/, -, _, :, =). Enter `/` to separate folders. <br> \* e.g.) If you enter `year=#{year}/month=#{month}/day=#{day}`, the flow log files for September 1, 2024, will be stored under the `year=2024/month=09/day=01` folder.|
+| flowlog\_logger.customized_file_name | Body | String | | When the flow log logger saves a file to the repository, the format of the file title. <br> \* The default is: #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST <br> \* You can directly define the title of the flow logger file by using the template variables #{logger_id}, #{year}, #{month}, #{day}, #{hour}, #{minute}, and #{second} exactly once each. |
+| flowlog\_logger.admin\_state\_up | Body | Boolean |  | The activation status of the flow logger. If `false`, it is disabled and will not be collected. The default is `true`. |
+| flowlog\_logger.description | Body | String |  | Description of the flow log logger |
 
 <details>
   <summary>Example</summary>
@@ -256,21 +260,22 @@ X-Auth-Token: {tokenId}
 
 | Name | Type | Format | Description |
 | ---- | --- | ---- | --- |
-| flowlog_logger | Body | Object | Flow log logger information object |
-| flowlog_logger.name | Body | String | Flow log logger name |
-| flowlog_logger.resource_type | Body | String | The type of resource the flow log logger collects from. One of `VPC`, `SUBNET`, or `PORT`. |
-| flowlog_logger.resource_id | Body | UUID | Flow log logger's collection target resource ID |
-| flowlog_logger.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
-| flowlog_logger.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at the specified intervals.  |
-| flowlog_logger.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_logger.storage_type | Body | Boolean | Storage type for the flow log logger. Currently, only `OBS` is supported. |
-| flowlog_logger.storage_url | Body | Boolean | Storage address of the flow log logger |
-| flowlog_logger.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_logger.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently, only `RAW` is supported.  |
+| flowlog\_logger | Body | Object | Flow log logger information object |
+| flowlog\_logger.name | Body | String | Flow log logger name |
+| flowlog\_logger.resource\_type | Body | String | The type of resource the flow log logger collects from. One of `VPC`, `SUBNET`, or `PORT`. |
+| flowlog\_logger.resource\_id | Body | UUID | Flow log logger's collection target resource ID |
+| flowlog\_logger.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
+| flowlog\_logger.aggregation\_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at the specified intervals.  |
+| flowlog\_logger.connection\_setup\_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
+| flowlog\_logger.storage\_type | Body | String | Storage type for the flow log logger. Currently only `OBS` is supported. |
+| flowlog\_logger.storage\_url | Body | String | Storage address of the flow log logger |
+| flowlog\_logger.log\_format | Body | String | Type of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
+| flowlog\_logger.compression\_type | Body | String | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
 | flowlog_logger.customized_field | Body | String | Fields that the flow log logger will write to a file. Currently not supported. |
-| flowlog_logger.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
+| flowlog\_logger.partition\_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `#{YEAR}/#{MONTH}/#{DAY}` folder under the directory-path of the storage\_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage\_url you entered, up to `#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}`, separated by time. <br> \* For other custom formats, the time is entered in #{year}, #{month}, #{day}, and #{hour}.|
+| flowlog\_logger.customized_file_name | Body | String | When the flow log logger saves a file to the repository, the format of the file title. <br> \* The default is: #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog_logger.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
-| flowlog_logger.description | Body | Boolean | Description of the flow log logger |
+| flowlog_logger.description | Body | String | Description of the flow log logger |
 | flowlog_logger.status | Body | Enum | Status of the flow log logger |
 | flowlog_logger.created_at | Body | Date | Time the flow log logger was created |
 | flowlog_logger.updated_at | Body | Date | Time the flow log logger was modified |
@@ -327,7 +332,7 @@ X-Auth-Token: {tokenId}
 | flowlog_logger | Body | Object | O | Flow log logger information object |
 | flowlog_logger.name | Body | String | O | Flow log logger name |
 | flowlog_logger.admin_state_up | Body | Boolean |  | Enable status of the flow log logger. If `false`, it is disabled and does not collect. The default is `true`. |
-| flowlog_logger.description | Body | Boolean |  | Description of the flow log logger |
+| flowlog_logger.description | Body | String |  | Description of the flow log logger |
 
 <details>
   <summary>Example</summary>
@@ -355,14 +360,15 @@ X-Auth-Token: {tokenId}
 | flowlog_logger.filter | Body | String | The collection target filter for the flow log logger. One of `ALL`, `ACCEPT`, or `DROP`. <br>* `ACCEPT` only captures packets that are allowed to communicate<br>* `DROP` only captures packets that are blocked from communication<br>* `ALL` captures all packets that are allowed to communicate and those that are blocked |
 | flowlog_logger.aggregation_interval | Body | Integer | How often to sum and aggregate the data collected by the flow log logger and write it to a file in storage. The unit is minutes. A file is created in storage with that value at the specified intervals.  |
 | flowlog_logger.connection_setup_only | Body | Boolean | If `true`, collect only packets that attempt to establish a connection. When set to `true`, the collection is limited as follows.<br>\* For TCP, no longer collect TCP state of established<br>\* For UDP/ICMP, does not collect response packets |
-| flowlog_logger.storage_type | Body | Boolean | Storage type for the flow log logger. Currently, only `OBS` is supported. |
-| flowlog_logger.storage_url | Body | Boolean | Storage address of the flow log logger |
-| flowlog_logger.log_format | Body | Boolean | Format of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
-| flowlog_logger.compression_type | Body | Boolean | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. Currently, only `RAW` is supported.  |
+| flowlog\_logger.storage\_type | Body | String | Storage type for the flow log logger. Currently only `OBS` is supported. |
+| flowlog\_logger.storage\_url | Body | String | Storage address of the flow log logger |
+| flowlog\_logger.log\_format | Body | String | Type of the file to be saved by the flow log logger. Can be `CSV`, `PARQUET` file format. |
+| flowlog\_logger.compression\_type | Body | String | The compression format of the file to be saved by the flow log logger. Can be `RAW` or `GZIP` compression type. |
 | flowlog_logger.customized_field | Body | String | Fields that the flow log logger will write to a file. Currently not supported. |
-| flowlog_logger.partition_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `{YEAR}/{MONTH}/{DAY}` folder under the directory-path of the storage_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage_url you entered, up to `{YEAR}/{MONTH}/{DAY}/{HOUR}`, separated by time. |
+| flowlog\_logger.partition\_period | Body | Boolean | When the flow log logger saves files to storage, it refers to the folder creation structure. Supports `HOUR` and `DAY`. <br>\* If you specify `DAY`, it creates a `#{YEAR}/#{MONTH}/#{DAY}` folder under the directory-path of the storage\_url you entered.<br>\* If you specify `HOUR`, it creates a folder under the directory-path of the storage\_url you entered, up to `#{YEAR}/#{MONTH}/#{DAY}/#{HOUR}`, separated by time. <br> \* For other custom formats, the time is entered in #{year}, #{month}, #{day}, and #{hour}.|
+| flowlog\_logger.customized_file_name | Body | String | When the flow log logger saves a file to the repository, the format of the file title. <br> \* The default is: #{logger_id}_#{year}-#{month}-#{day}T#{hour}:#{minute}:#{second}KST |
 | flowlog_logger.admin_state_up | Body | Boolean | Enable status of the flow log logger. If `false`, it is disabled and does not collect. |
-| flowlog_logger.description | Body | Boolean | Description of the flow log logger |
+| flowlog_logger.description | Body | String | Description of the flow log logger |
 | flowlog_logger.status | Body | Enum | Status of the flow log logger |
 | flowlog_logger.created_at | Body | Date | Time the flow log logger was created |
 | flowlog_logger.updated_at | Body | Date | Time the flow log logger was modified |

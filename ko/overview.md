@@ -64,6 +64,7 @@
 | 21 | transithub_drop_black_hole_packets | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷의 수 | Integer | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1로 표기됩니다. |
 | 22 | transithub_drop_black_hole_bytes | 트랜짓 허브 라우터에서 블랙홀 라우팅으로 결정되어 드랍된 패킷 크기의 총합 | Byte | 트랜짓 허브와 관련된 항목으로서, 트랜짓 허브가 아닌 인터페이스는 -1로 표기됩니다. |
 | 23 | status | 로그 상태 | `OK` 또는 `SKIPDATA` 또는 `NODATA`                                                                              | * OK: 정상적으로 로깅된 5-tuple입니다. <br> * SKIPDATA: 플로우 로그에서 제공하는 내부 용량을 초과하여 해당 수집 간격 기간 동안 수집되지 않은 패킷이 존재합니다. <br> * NODATA: 해당 수집 간격 내에 수집된 데이터가 없습니다. |
+| 24 | traffic_path | 수집된 5-tuple의 트래픽 경로 | Integer | 패킷이 흐른 네트워크 경로를 1~7의 정수 값으로 표기합니다. <br> * 1: VPC Local(동일 VPC 내 리소스 간 통신) <br> * 2: Internet Gateway(인터넷으로 나가는 트래픽, Floating IP 포함) <br> * 3: VPN Gateway(Site-to-Site VPN을 통한 온프레미스 연결) <br> * 4: VPC Peering(같은 프로젝트 내 VPC 피어링) <br> * 5: Region Peering(다른 리전 간 VPC 피어링) <br> * 6: Project Peering(다른 프로젝트, 같은 리전 VPC 피어링) <br> * 7: Service Gateway(NHN Cloud 내부 서비스 접근, 예: Object Storage) |
 
 
 ### TCP Flag

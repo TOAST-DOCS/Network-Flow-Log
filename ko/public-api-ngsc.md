@@ -164,7 +164,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시.. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다. |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다. |
 
 <details>
   <summary>예시</summary>

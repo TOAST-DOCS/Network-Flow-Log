@@ -1,6 +1,6 @@
 ## Network > Flow Log > API v2ガイド
 
-APIを使用するには、APIエンドポイントとトークンなどが必要です。[API使用準備](/Compute/Compute/ko/identity-api/)を参照して、API使用に必要な情報を準備します。
+NHN Cloud Networkサービスは、API呼び出し時の認証/認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行及び使用に関する詳細は、[IaaSトークン](/nhncloud/ja/public-api/iaas-token)を参照してください。
 
 ロガーとロギングポートAPIは`network`タイプのエンドポイントを利用します。正確なエンドポイントは、トークン発行応答の`serviceCatalog`を参照してください。
 

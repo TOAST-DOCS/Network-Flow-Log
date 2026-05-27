@@ -164,7 +164,7 @@ X-Auth-Token: {tokenId}
 | flowlog\_logger.status | Body | Enum | 플로우 로그 로거의 상태 |
 | flowlog\_logger.created_at | Body | Date | 플로우 로그 로거를 생성한 시간 |
 | flowlog\_logger.updated_at | Body | Date | 플로우 로그 로거가 수정된 시간 |
-| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시.. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다. |
+| flowlog\_logger.error_type | Body | String | 플로우 로그 로거에 오류가 발생한 경우, 오류 이유를 표시. <br>자세한 내용은 페이지 최하단의 오류 유형을 확인하시길 바랍니다. |
 
 <details>
   <summary>예시</summary>
@@ -566,8 +566,8 @@ X-Auth-Token: {tokenId}
 | :---: | --- | --- | --- |
 | ACTIVE | - | - | - | - |
 | BUILD | - | - | - | - |
-| ERROR | AuthenticationSystemError | 인증 시스템에 문제가 있습니다. 고객 센터에 문의하세요. | 플로우 로그 시스템 계정이 Keystone 서버로부터 토큰 발급을 받지 못한 경우입니다. |
+| ERROR | AuthenticationSystemError | 인증 시스템에 문제가 있습니다. 고객지원에 문의하세요. | 플로우 로그 시스템 계정이 Keystone 서버로부터 토큰 발급을 받지 못한 경우입니다. |
 | ERROR | OBSConfigurationError | OBS URL 및 접근 정책을 확인하세요. | 사용자의 저장소로 더미 데이터를 보냈으나 OBS 접근 권한이 없어 403 오류가 발생한 경우입니다. 컨테이너 URL 및 접근 정책을 확인하세요. |
-| ERROR | OBSServiceNotAvailableError | OBS 서비스가 동작하지 않습니다. 고객 센터에 문의하세요. | 사용자의 저장소로 더미 데이터를 보냈으나 401, 403 외의 오류가 발생한 경우입니다. |
+| ERROR | OBSServiceNotAvailableError | OBS 서비스가 동작하지 않습니다. 고객지원에 문의하세요. | 사용자의 저장소로 더미 데이터를 보냈으나 401, 403 외의 오류가 발생한 경우입니다. |
 
 

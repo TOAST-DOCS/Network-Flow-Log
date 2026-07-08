@@ -1,9 +1,11 @@
-## Network > Flow Log > 概要
+<a id="network-flow-log-overview"></a>
+## Network > Flow Log > 概要 { #network-flow-log-overview }
 Flow Logサービスは、ユーザーのネットワークインターフェースで送受信されるパケットを分析して統計を提供します。このサービスを使用すると、ネットワークインターフェースに設定された**Security Groups**ルールによって許可または拒否されたパケットの数、サイズなど、様々な統計を確認できます。Flow Logサービスを活用すると、ユーザーのネットワークインターフェースが正しくトラフィックを送受信したか、誰と通信を行ったか、そして外部からどのような侵入の試みがあったかなどを確認できます。
 
 
 
-### 主な機能
+<a id="main-features"></a>
+### 主な機能 { #main-features }
 
 * Flow Logサービスは、ネットワークインターフェースで送受信される全てのパケットのヘッダを検査します。現在は、インスタンスのネットワークインターフェースとTransit Hub接続にのみ機能を提供します。
 
@@ -14,7 +16,8 @@ Flow Logサービスは、ユーザーのネットワークインターフェー
 * 統計を確認することで、**Security Groups**が正しく設定されているかどうか、外部からの侵入の試みなどを確認できます。
 
 
-### サービス対象
+<a id="service-targets"></a>
+### サービス対象 { #service-targets }
 
 * インスタンスのポート経由で送受信されるパケットの接続情報、統計などを収集/確認したい場合
 
@@ -25,7 +28,8 @@ Flow Logサービスは、ユーザーのネットワークインターフェー
 * インスタンスへのパケット流入履歴を確認し、疑わしいアドレスを遮断してインスタンスのセキュリティ強化を図りたい場合
 
 
-### 用語
+<a id="terminology"></a>
+### 用語 { #terminology }
 
 Flow Logサービスで使用するリソースと用語を説明します。
 
@@ -35,7 +39,8 @@ Flow Logサービスで使用するリソースと用語を説明します。
 
 
 
-## 統計の提供情報項目
+<a id="statistics-information-items"></a>
+## 統計の提供情報項目 { #statistics-information-items }
 Flow Logサービスがパケットを収集及び集計し、ユーザーに提供する項目は次のとおりです。
 
 
@@ -67,7 +72,8 @@ Flow Logサービスがパケットを収集及び集計し、ユーザーに提
 | 24 | traffic_path | 収集された5-tupleのトラフィック経路 | Integer | パケットが流れたネットワーク経路を1～7の整数値で表記します。<br> * 1: VPC Local(同一VPC内のリソース間通信) <br> * 2: Internet Gateway(インターネットへ送信されるトラフィック、フローティングIPを含む) <br> * 3: VPN Gateway(Site-to-Site VPN経由のオンプレミス接続) <br> * 4: VPC Peering(同じプロジェクト内のVPCピアリング) <br> * 5: Region Peering(異なるリージョン間のVPCピアリング) <br> * 6: Project Peering(異なるプロジェクト、同じリージョンのVPCピアリング) <br> * 7: Service Gateway(NHN Cloud内部サービスへのアクセス、例: Object Storage) |
 
 
-### TCP Flag
+<a id="tcp-flag"></a>
+### TCP Flag { #tcp-flag }
 * TCP接続が短い場合、TCP Active openを試みる側からSYN、FINを収集間隔内に送信することがあります。この場合、SYN \| FIN (2 | 1 = 3)が記録されます。
 
 
@@ -83,16 +89,19 @@ Flow Logサービスがパケットを収集及び集計し、ユーザーに提
 * PSH flagのみ存在するパケット、ACK flagのみ存在するパケット、及び一般的にトラフィックを送信する際に使用するPSH \| ACK flagは収集に含めません。つまり、SYN、SYN \| ACK、FIN \| ACK、RST、FINのみ記録します。
 * URG(urgent)、ECE(ECN-echo)、CWR(congestion window reduced)は提供しません。
 
-## 注意事項
+<a id="caution"></a>
+## 注意事項 { #caution }
 
-### 収集間隔
+<a id="collection-interval"></a>
+### 収集間隔 { #collection-interval }
 * 収集間隔を長く設定した場合、実際には異なる接続であっても同じ5-tupleとして収集される可能性があります。
 
     * 収集間隔内に同一の5-tupleで複数回の接続確立/終了を繰り返すと、これらの接続が論理的にそれぞれ異なる接続であったとしても、同じ5-tupleとして集計されます。
 
     * したがって、状況に応じて適切な収集間隔を設定することを推奨します。
 
-### Flow Logがキャプチャしないトラフィック
+<a id="traffic-not-captured-by-flow-log"></a>
+### Flow Logがキャプチャしないトラフィック { #traffic-not-captured-by-flow-log }
 
 * IPv6トラフィックは記録しません。
 * インスタンスへ送受信されるマルチキャストトラフィックは記録しません。
@@ -101,20 +110,23 @@ Flow Logサービスがパケットを収集及び集計し、ユーザーに提
 * ARPパケットは記録しません。
 * インスタンスを含む物理機器、またはネットワークサービスの物理機器において、一時的なネットワークの輻輳によって発生するDROPは収集対象ではありません。
 
-### Transit Hub接続にFlow Logを指定して使用する際の注意事項
+<a id="important-notes-for-using-flow-log-designated-for-a-transit-hub-connection"></a>
+### Transit Hub接続にFlow Logを指定して使用する際の注意事項 { #important-notes-for-using-flow-log-designated-for-a-transit-hub-connection }
 
 * Transit Hubのマルチキャストトラフィックは、Transit Hubを基準としてTransit Hub経由で流入(ingress)するパケットのみを記録します。1つまたは複数の接続を通じて送信されるマルチキャストトラフィックは記録しません。
 * Transit Hubを流れるパケットは、Transit Hubルーターのドロップの有無に関係なく、全てACCEPTに1回ずつ記録されます。Transit Hubルーターで実際にドロップされたパケットは、別の行にDROPと共に記録されます。
 * Transit Hubは**接続確立パケットのみ収集(connection setup only)**オプションの影響を受けず、接続状態に関係なく全てのパケットを収集します。
 
-### ロードバランサーにFlow Logを指定して使用する際の注意事項
+<a id="important-notes-when-using-flow-log-designated-for-load-balancers"></a>
+### ロードバランサーにFlow Logを指定して使用する際の注意事項 { #important-notes-when-using-flow-log-designated-for-load-balancers }
 
 * 現在、ロードバランサーはACCEPTパケットのみを収集します。ロードバランサーに設定されたIP ACLによってDROPされたパケットの収集は、今後サポートする予定です。
 
 * ロードバランサーへのアクセスを試みるパケット、ロードバランサーとメンバー間の一般パケットだけでなく、ヘルスチェックパケットも一緒に収集します。
 * 該当のサービスに接続されたFlow Logは**接続確立パケットのみ収集(connection setup only)**オプションの影響を受けず、接続状態に関係なく全てのパケットを収集します。
 
-### ピアリングゲートウェイ及びコロケーションゲートウェイにフローログを指定して使用する際の注意事項
+<a id="important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways"></a>
+### ピアリングゲートウェイ及びコロケーションゲートウェイにフローログを指定して使用する際の注意事項 { #important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways }
 
 * VPCピアリングゲートウェイは現在サポートしていません。
 * ユーザーが明示的にDROPを設定できるサービスではないため、DROPはサポートしていません。

@@ -1,7 +1,10 @@
-## Network > Flow Log > コンソール使用ガイド
+<a id="network-flow-log-console-user-guide"></a>
+## Network > Flow Log > コンソール使用ガイド { #network-flow-log-console-user-guide }
 
-## フローログ管理
-### フローログの作成
+<a id="manage-flow-log"></a>
+## フローログ管理 { #manage-flow-log }
+<a id="create-flow-log"></a>
+### フローログの作成 { #create-flow-log }
 NHN Cloudのコンソールでフローログ作成画面からフローログを作成できます。フローログが正しく動作するためには、フローログシステムがストレージへのアクセス権を持っている必要があります。詳細は、下部の**フローログのストレージアクセス権限付与**を参照してください。
 
 
@@ -49,27 +52,33 @@ NHN Cloudのコンソールでフローログ作成画面からフローログ�
 
 
 
-### フローログの変更
+<a id="change-flow-log"></a>
+### フローログの変更 { #change-flow-log }
 **フローログ変更**ボタンをクリックして、フローログの名前と説明を変更できます。
 
-### フローログの削除
+<a id="delete-flow-log"></a>
+### フローログの削除 { #delete-flow-log }
 **フローログ削除**ボタンをクリックして、フローログを削除できます。
 
 > [注意]フローログが収集中のネットワークインターフェイスが削除されても、フローログは削除されません。代わりに、**削除されたリソース**というフレーズが表示され、フローログはユーザーが直接削除する必要があります。
 > 収集対象リソースが削除された場合は、収集されるデータが存在しないため、課金はされません。
 
-### フローログシステムアカウント情報
+<a id="flow-log-system-account-information"></a>
+### フローログシステムアカウント情報 { #flow-log-system-account-information }
 **フローログシステムアカウント情報**をクリックすると、フローログシステムが使用する**Flow LogテナントID**と**Flow Log APIユーザーID**が表示されます。フローログを使用するためには、ユーザーのストレージに該当Flow LogテナントID及びFlow Log APIユーザーIDに書き込みアクセス権限を付与する必要があります。詳細は下記の**フローログのストレージへのアクセス権限付与**を参照してください。
 
 
 
 
-## フローログのストレージへのアクセス権限付与
-### Object Storage
+<a id="grant-storage-access-permissions-for-flow-logs"></a>
+## フローログのストレージへのアクセス権限付与 { #grant-storage-access-permissions-for-flow-logs }
+<a id="object-storage"></a>
+### Object Storage { #object-storage }
 ストレージタイプをOBS(object storage)に指定してフローログを作成した場合、フローログシステムアカウントが該当OBSに書き込みでアクセスできる必要があります。もし、書き込み権限を正しく付与していない場合、フローログシステムアカウントはユーザーのOBSにデータを記録できません。
 
 
-### 設定方法
+<a id="how-to-set-it-up"></a>
+### 設定方法 { #how-to-set-it-up }
 
 * NHN Cloud > Object Storageコンソールにアクセスします。
 

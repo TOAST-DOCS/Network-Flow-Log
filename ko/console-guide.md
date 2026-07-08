@@ -1,7 +1,10 @@
-## Network > Flow Log > 콘솔 사용 가이드
+<a id="network-flow-log-console-user-guide"></a>
+## Network > Flow Log > 콘솔 사용 가이드 { #network-flow-log-console-user-guide }
 
-## 플로우 로그 관리
-### 플로우 로그 생성
+<a id="manage-flow-log"></a>
+## 플로우 로그 관리 { #manage-flow-log }
+<a id="create-flow-log"></a>
+### 플로우 로그 생성 { #create-flow-log }
 NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 있습니다. 플로우 로그가 올바르게 동작하려면 플로우 로그 시스템이 저장소에 접근 권한을 가지고 있어야 합니다. 자세한 내용은 하단의 **플로우 로그의 저장소 접근 권한 부여**를 참고하세요.
 
 
@@ -49,27 +52,33 @@ NHN Cloud 콘솔에서 플로우 로그 생성 화면을 통해 생성할 수 �
 
 
 
-### 플로우 로그 변경
+<a id="change-flow-log"></a>
+### 플로우 로그 변경 { #change-flow-log }
 **플로우 로그 변경** 버튼을 클릭하여 플로우 로그의 이름과 설명을 수정할 수 있습니다.
 
-### 플로우 로그 삭제
+<a id="delete-flow-log"></a>
+### 플로우 로그 삭제 { #delete-flow-log }
 **플로우 로그 삭제** 버튼을 클릭하여 플로우 로그를 삭제할 수 있습니다.
 
 > [주의] 플로우 로그가 수집 중인 네트워크 인터페이스가 삭제되어도 플로우 로그는 삭제되지 않습니다. 대신, **삭제된 리소스** 라는 문구가 노출되며 플로우 로그는 사용자가 직접 삭제해야 합니다. 
 > 수집 대상 리소스가 삭제된 경우에는 수집되는 데이터가 존재하지 않으므로 과금은 되지 않습니다.
 
-### 플로우 로그 시스템 계정 정보
+<a id="flow-log-system-account-information"></a>
+### 플로우 로그 시스템 계정 정보 { #flow-log-system-account-information }
 **플로우 로그 시스템 계정 정보**를 클릭하면 플로우 로그 시스템이 사용하는 **Flow Log 테넌트 ID**와 **Flow Log API 사용자 ID**가 표시됩니다. 플로우 로그를 사용하기 위해서는 사용자의 저장소에 해당 Flow Log 테넌트 ID 및 Flow Log API 사용자 ID에게 쓰기 접근 권한을 부여해야 합니다. 자세한 내용은 아래의 **플로우 로그의 저장소 접근 권한 부여**를 참고하세요.
 
 
 
 
-## 플로우 로그의 저장소 접근 권한 부여
-### Object Storage
+<a id="grant-storage-access-permissions-for-flow-logs"></a>
+## 플로우 로그의 저장소 접근 권한 부여 { #grant-storage-access-permissions-for-flow-logs }
+<a id="object-storage"></a>
+### Object Storage { #object-storage }
 저장소 타입을 OBS(object storage)로 지정하여 플로우 로그를 생성한 경우, 플로우 로그 시스템 계정이 해당 OBS에 쓰기로 접근할 수 있어야 합니다. 만약 쓰기 권한을 올바르게 부여하지 않았다면, 플로우 로그 시스템 계정은 사용자의 OBS에 데이터를 기록할 수 없습니다.
 
 
-### 설정 방법
+<a id="how-to-set-it-up"></a>
+### 설정 방법 { #how-to-set-it-up }
 
 * NHN Cloud > Object Storage 콘솔로 접근합니다.
 

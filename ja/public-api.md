@@ -1,4 +1,7 @@
-## Network > Flow Log > API v2ガイド
+<!-- pre-align:aligned sig=735ec3d72cfa -->
+
+<a id="network-flow-log-api-v2-guide"></a>
+## Network > Flow Log > API v2ガイド { #network-flow-log-api-v2-guide }
 
 NHN Cloud Networkサービスは、API呼び出し時の認証/認可のためにIaaSトークンを使用します。IaaSトークンは、NHN CloudのOpenStackベースのインフラサービス(IaaS)で使用する認証トークンです。IaaSトークンの発行及び使用に関する詳細は、[IaaSトークン](/nhncloud/ja/public-api/iaas-token)を参照してください。
 
@@ -11,15 +14,18 @@ NHN Cloud Networkサービスは、API呼び出し時の認証/認可のため�
 APIレスポンスにガイドに記載されていないフィールドが表示される場合があります。このようなフィールドは、NHN Cloudの内部用途で使用し、予告なく変更される可能性があるため、使用しないでください。
 
 
-## フローログロガー
+<a id="flow-log-logger"></a>
+## フローログロガー { #flow-log-logger }
 
-### フローログロガーリストを見る
+<a id="list-flow-log-loggers"></a>
+### フローログロガーリストを見る { #list-flow-log-loggers }
 
 ```
 GET /v2.0/flowlog-loggers
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="list-flow-log-loggers-request"></a>
 #### リクエスト
 
 このAPIはリクエスト本文を要求しません。
@@ -40,6 +46,7 @@ X-Auth-Token: {tokenId}
 | customized_file_name | Query | String | - | 照会するフローログロガーのファイルタイトル形式 |
 | status | Query | String | - | 照会するフローログロガーの状態 |
 
+<a id="list-flow-log-loggers-response"></a>
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -125,13 +132,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### フローログロガー表示
+<a id="view-flow-log-logger"></a>
+### フローログロガー表示 { #view-flow-log-logger }
 
 ```
 GET /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId}
 ```
 
+<a id="view-flow-log-logger-request"></a>
 #### リクエスト
 
 このAPIはリクエスト本文を要求しません。
@@ -141,6 +150,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | flowlogLoggerId | URL | UUID | O | フローログロガーID |
 
+<a id="view-flow-log-logger-response"></a>
 #### レスポンス
 
 | Name | In | Type | Description |
@@ -201,13 +211,15 @@ X-Auth-Token: {tokenId}
 
 string JP
 
-### フローログロガーを作成する
+<a id="create-flow-log-logger"></a>
+### フローログロガーを作成する { #create-flow-log-logger }
 
 ```
 POST /v2.0/flowlog-loggers
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="create-flow-log-logger-request"></a>
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -256,6 +268,7 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+<a id="create-flow-log-logger-response"></a>
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -316,13 +329,15 @@ X-Auth-Token: {tokenId}
 
 string JP
 
-### フローログロガーを修正する
+<a id="modify-flow-log-logger"></a>
+### フローログロガーを修正する { #modify-flow-log-logger }
 
 ```
 PUT /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="modify-flow-log-logger-request"></a>
 #### リクエスト
 
 | 名前 | 種類 | 形式 | 必須 | 説明 |
@@ -349,6 +364,7 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+<a id="modify-flow-log-logger-response"></a>
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -409,13 +425,15 @@ X-Auth-Token: {tokenId}
 
 string JP
 
-### フローログロガーを削除する
+<a id="delete-flow-log-logger"></a>
+### フローログロガーを削除する { #delete-flow-log-logger }
 
 ```
 DELETE /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="delete-flow-log-logger-request"></a>
 #### リクエスト
 
 このAPIはリクエスト本文を要求しません。
@@ -425,6 +443,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | flowlogLoggerId | URL | UUID | O | フローログロガーID |
 
+<a id="delete-flow-log-logger-response"></a>
 #### レスポンス
 
 このAPIはレスポンス本文を返しません。
@@ -434,19 +453,22 @@ X-Auth-Token: {tokenId}
 <br>
 
 
-## フローログロギングポート
+<a id="flow-log-logging-port"></a>
+## フローログロギングポート { #flow-log-logging-port }
 
 * フローログロギングポートとは、フローログロガーが実質的にキャプチャするポートを意味します。フローロガーのresource\_typeがVPCまたはSubnetの場合、1つのフローログロガーが複数のフローログロギングポートを管理することになります。
 * ユーザーがロガーを作成または削除する際、フローログは内部的にそのロガーに属しているポートを確認し、ロギングポート対象として追加または削除を行います。したがって、ユーザーが別途にロギングポートを追加/削除する必要はありません。
 * フローログのロギングポートは、照会APIのみを提供します。
 
-### フローログロギングポートリスト表示
+<a id="list-flow-log-logging-ports"></a>
+### フローログロギングポートリスト表示 { #list-flow-log-logging-ports }
 
 ```
 GET /v2.0/flowlog-logging-ports
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="list-flow-log-logging-ports-request"></a>
 #### リクエスト
 
 このAPIはリクエスト本文を要求しません。
@@ -459,6 +481,7 @@ X-Auth-Token: {tokenId}
 | port_id | Query | UUID | - | 照会するフローログロギングポートのポートID |
 | network_id | Query | UUID | - | 照会するフローログのVPC ID |
 
+<a id="list-flow-log-logging-ports-response"></a>
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -505,13 +528,15 @@ X-Auth-Token: {tokenId}
 
 string JP
 
-### フローログロギングポート表示
+<a id="view-flow-log-logging-port"></a>
+### フローログロギングポート表示 { #view-flow-log-logging-port }
 
 ```
 GET /v2.0/flowlog-logging-ports/{flowlogLoggingPortId}
 X-Auth-Token: {tokenId} 
 ```
 
+<a id="view-flow-log-logging-port-request"></a>
 #### リクエスト
 
 このAPIはリクエスト本文を要求しません。
@@ -521,6 +546,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | トークンID |
 | flowlogLoggingPortId | URL | UUID | O | フローログロギングポートID |
 
+<a id="view-flow-log-logging-port-response"></a>
 #### レスポンス
 
 | 名前 | 種類 | 形式 | 説明 |
@@ -555,7 +581,8 @@ X-Auth-Token: {tokenId}
 
 <br><br><br>
 
-## エラータイプ
+<a id="error-type"></a>
+## エラータイプ { #error-type }
 
 フローログを使う環境が正しく設定されていない場合、エラーが発生することがあります。この場合、flowlog_logger.error_typeを照会してエラーの原因を確認できます。
 

@@ -1,9 +1,13 @@
-## Network > Flow Log > 개요
+<!-- pre-align:aligned sig=3543b2af3ddd -->
+
+<a id="network-flow-log-overview"></a>
+## Network > Flow Log > 개요 { #network-flow-log-overview }
 Flow Log 서비스는 사용자의 네트워크 인터페이스로 들어오고 나가는 패킷을 분석하여 통계를 제공합니다. 이 서비스를 사용하면 네트워크 인터페이스에 설정된 **Security Groups** 규칙에 의하여 허용 또는 거부된 패킷의 개수, 크기 등 다양한 통계를 확인할 수 있습니다. Flow Log 서비스를 활용하면 사용자의 네트워크 인터페이스가 올바르게 트래픽을 주고받았는지, 누구와 통신을 수행했는지 그리고 외부에서 어떠한 침입 시도가 있었는지 등을 확인할 수 있습니다.
 
 
 
-### 주요 기능
+<a id="main-features"></a>
+### 주요 기능 { #main-features }
 
 * Flow Log 서비스는 네트워크 인터페이스로 오가는 모든 패킷의 헤더를 검사합니다. 현재는 인스턴스의 네트워크 인터페이스와 트랜짓 허브 연결에만 기능을 제공합니다.
 
@@ -14,7 +18,8 @@ Flow Log 서비스는 사용자의 네트워크 인터페이스로 들어오고 
 * 통계를 확인하여 **Security Groups**의 올바른 설정 여부, 외부 침입 시도 등을 확인할 수 있습니다.
 
 
-### 서비스 대상
+<a id="service-targets"></a>
+### 서비스 대상 { #service-targets }
 
 * 인스턴스의 포트를 통해 들어오고 나가는 패킷의 연결 정보, 통계 등을 수집/확인하고 싶은 경우
 
@@ -25,7 +30,8 @@ Flow Log 서비스는 사용자의 네트워크 인터페이스로 들어오고 
 * 인스턴스로의 패킷 유입 기록을 확인하고 의심스러운 주소를 차단해 인스턴스의 보안 강화를 도모하고 싶은 경우
 
 
-### 용어
+<a id="terminology"></a>
+### 용어 { #terminology }
 
 Flow Log 서비스에서 사용하는 리소스와 용어를 설명합니다.
 
@@ -35,7 +41,8 @@ Flow Log 서비스에서 사용하는 리소스와 용어를 설명합니다.
 
 
 
-## 통계 제공 정보 항목
+<a id="statistics-information-items"></a>
+## 통계 제공 정보 항목 { #statistics-information-items }
 Flow Log 서비스가 패킷을 수집 및 집계하여 사용자에게 제공하는 항목은 다음과 같습니다.
 
 
@@ -67,7 +74,8 @@ Flow Log 서비스가 패킷을 수집 및 집계하여 사용자에게 제공�
 | 24 | traffic_path | 수집된 5-tuple의 트래픽 경로 | Integer | 패킷이 흐른 네트워크 경로를 1~7의 정수 값으로 표기합니다. <br> * 1: VPC Local(동일 VPC 내 리소스 간 통신) <br> * 2: Internet Gateway(인터넷으로 나가는 트래픽, Floating IP 포함) <br> * 3: VPN Gateway(Site-to-Site VPN을 통한 온프레미스 연결) <br> * 4: VPC Peering(같은 프로젝트 내 VPC 피어링) <br> * 5: Region Peering(다른 리전 간 VPC 피어링) <br> * 6: Project Peering(다른 프로젝트, 같은 리전 VPC 피어링) <br> * 7: Service Gateway(NHN Cloud 내부 서비스 접근, 예: Object Storage) |
 
 
-### TCP Flag
+<a id="tcp-flag"></a>
+### TCP Flag { #tcp-flag }
 * TCP 연결이 짧은 경우 TCP Active open을 시도하는 측에서 SYN, FIN을 수집 간격 내에 송신할 수 있습니다. 이때는 SYN \| FIN (2 | 1 = 3)이 기록됩니다.
 
 
@@ -83,16 +91,19 @@ Flow Log 서비스가 패킷을 수집 및 집계하여 사용자에게 제공�
 * PSH flag만 존재하는 패킷, ACK flag만 존재하는 패킷 및 일반적으로 트래픽을 송신할 때 사용하는 PSH \| ACK flag는 수집에 포함하지 않습니다. 즉, SYN, SYN \| ACK, FIN \| ACK, RST, FIN만 기록합니다.
 * URG(urgent), ECE(ECN-echo), CWR(congestion window reduced)는 제공하지 않습니다.
 
-## 주의 사항
+<a id="caution"></a>
+## 주의 사항 { #caution }
 
-### 수집 간격
+<a id="collection-interval"></a>
+### 수집 간격 { #collection-interval }
 * 수집 간격을 길게 설정할 경우, 실제로는 다른 연결이지만 같은 5-tuple로 수집될 수 있습니다.
 
     * 수집 간격 이내에 동일한 5-tuple로 여러 번 연결 수립/종료를 반복하면, 이 연결들이 논리적으로 각자 다른 연결이라고 할지라도 같은 5-tuple로 집계됩니다.
 
     * 따라서 상황에 따라 적절한 수집 간격을 설정하는 것이 좋습니다.
 
-### Flow Log가 캡처하지 않는 트래픽
+<a id="traffic-not-captured-by-flow-log"></a>
+### Flow Log가 캡처하지 않는 트래픽 { #traffic-not-captured-by-flow-log }
 
 * IPv6 트래픽은 기록하지 않습니다.
 * 인스턴스로 오가는 멀티캐스트 트래픽은 기록하지 않습니다.
@@ -101,20 +112,23 @@ Flow Log 서비스가 패킷을 수집 및 집계하여 사용자에게 제공�
 * ARP 패킷은 기록하지 않습니다.
 * 인스턴스를 포함하는 물리적 장비 또는 네트워크 서비스의 물리적 장비에서 일시적인 네트워크 혼잡으로 발생하는 DROP은 수집 대상이 아닙니다.
 
-### 트랜짓 허브 연결에 Flow Log를 지정하여 사용 시 유의 사항
+<a id="important-notes-for-using-flow-log-designated-for-a-transit-hub-connection"></a>
+### 트랜짓 허브 연결에 Flow Log를 지정하여 사용 시 유의 사항 { #important-notes-for-using-flow-log-designated-for-a-transit-hub-connection }
 
 * 트랜짓 허브의 멀티캐스트 트래픽은 트랜짓 허브를 기준으로 트랜짓 허브를 통해 유입(ingress)되는 패킷만 기록합니다. 하나 또는 여러 연결을 통해 나가는 멀티캐스트 트래픽은 기록하지 않습니다.
 * 트랜짓 허브에 흐르는 패킷은 트랜짓 허브 라우터의 드롭 여부와 관계없이 모두 ACCEPT에 한 번씩 기록됩니다. 트랜짓 허브 라우터에서 실제로 드롭된 패킷은 별도의 줄에 DROP과 함께 기록됩니다.
 * 트랜짓 허브는 **연결 수립 패킷만 수집(connection setup only)** 옵션의 영향을 받지 않으며, 연결 상태와 관계없이 모든 패킷을 수집합니다.
 
-### 로드 밸런서에 Flow Log를 지정하여 사용 시 유의 사항
+<a id="important-notes-when-using-flow-log-designated-for-load-balancers"></a>
+### 로드 밸런서에 Flow Log를 지정하여 사용 시 유의 사항 { #important-notes-when-using-flow-log-designated-for-load-balancers }
 
 * 현재 로드 밸런서는 ACCEPT 패킷만을 수집합니다. 로드 밸런서에 설정된 IPACL에 의하여 DROP된 패킷의 수집은 추후 지원 예정입니다.
 
 * 로드 밸런서에 접근을 시도하는 패킷, 로드 밸런서와 멤버 사이의 일반 패킷뿐만 아니라 상태 확인 패킷들도 함께 수집합니다.
 * 해당 서비스에 연결된 Flow Log는 **연결 수립 패킷만 수집(connection setup only)** 옵션의 영향을 받지 않으며, 연결 상태와 관계없이 모든 패킷을 수집합니다.
 
-### 피어링 게이트웨이 및 코로케이션 게이트웨이에 플로우 로그를 지정하여 사용 시 유의 사항
+<a id="important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways"></a>
+### 피어링 게이트웨이 및 코로케이션 게이트웨이에 플로우 로그를 지정하여 사용 시 유의 사항 { #important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways }
 
 * VPC 피어링 게이트웨이는 현재 지원하지 않습니다.
 * 사용자가 명시적으로 DROP을 설정할 수 있는 서비스가 아니므로, DROP은 지원하지 않습니다.

@@ -1,7 +1,12 @@
-## Network > Flow Log > Console User Guide
+<!-- pre-align:aligned sig=2aab381b6d86 -->
 
-## Manage Flow Log
-### Create Flow Log
+<a id="network-flow-log-console-user-guide"></a>
+## Network > Flow Log > Console User Guide { #network-flow-log-console-user-guide }
+
+<a id="manage-flow-log"></a>
+## Manage Flow Log { #manage-flow-log }
+<a id="create-flow-log"></a>
+### Create Flow Log { #create-flow-log }
 It can be created through the Create flow log in the NHN Cloud console. For flow logs to work correctly, the flow log system must have access to storage. For more information, see **Granting storage access for flow logs** below.
 
 
@@ -49,27 +54,33 @@ After you click the **Create Flow Log** button, you can set basic information ab
 
 
 
-### Change Flow Log
+<a id="change-flow-log"></a>
+### Change Flow Log { #change-flow-log }
 You can modify the name and description of the flow log by clicking the **Change Flow Log** button.
 
-### Delete Flow Log
+<a id="delete-flow-log"></a>
+### Delete Flow Log { #delete-flow-log }
 You can delete a flow log by clicking the **Delete Flow Log** button.
 
 > [Caution] If the network interface on which the flow logs are being collected is deleted, the flow logs are not deleted. Instead, the **Deleted resource** message is displayed and you must delete the flow logs yourself.
 If the resource being collected is deleted, you will not be charged because the data being collected does not exist.
 
-### Flow Log System Account Information
+<a id="flow-log-system-account-information"></a>
+### Flow Log System Account Information { #flow-log-system-account-information }
 Click **Flow Log System Account Information** to display the **Flow Log Tenant ID** and **Flow Log API User ID** used by the Flow Log system. To use flow logs, you must grant write access to your storage to the corresponding Flow Log tenant ID and Flow Log API user ID. For more information, see **Granting storage access for flow logs** below.
 
 
 
 
-## Grant storage access permissions for flow logs
-### Object Storage
+<a id="grant-storage-access-permissions-for-flow-logs"></a>
+## Grant storage access permissions for flow logs { #grant-storage-access-permissions-for-flow-logs }
+<a id="object-storage"></a>
+### Object Storage { #object-storage }
 If you created a flow log with the storage type specified as object storage (OBS), the flow log system account must have write access to that OBS. If you don't grant write permissions correctly, the flow log system account can't write data to the OBS.
 
 
-### How to set it up
+<a id="how-to-set-it-up"></a>
+### How to set it up { #how-to-set-it-up }
 
 * Access the NHN Cloud > Object Storage console.
 

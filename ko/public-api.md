@@ -1,4 +1,7 @@
-## Network > Flow Log > API v2 가이드
+<!-- pre-align:aligned sig=735ec3d72cfa -->
+
+<a id="network-flow-log-api-v2-guide"></a>
+## Network > Flow Log > API v2 가이드 { #network-flow-log-api-v2-guide }
 
 NHN Cloud Network 서비스는 API 호출 시 인증/인가를 위해 IaaS 토큰을 사용합니다. IaaS 토큰은 NHN Cloud의 OpenStack 기반 인프라 서비스(IaaS)에서 사용하는 인증 토큰입니다. IaaS 토큰 발급 및 사용에 대한 자세한 내용은 [IaaS 토큰](/nhncloud/ko/public-api/iaas-token)을 참고하세요.
 
@@ -11,15 +14,18 @@ NHN Cloud Network 서비스는 API 호출 시 인증/인가를 위해 IaaS 토�
 API 응답에 가이드에 명시되지 않은 필드가 나타날 수 있습니다. 이런 필드는 NHN Cloud 내부 용도로 사용하며 사전 공지 없이 변경될 수 있으므로 사용하지 않습니다.
 
 
-## Flow Log 로거
+<a id="flow-log-logger"></a>
+## Flow Log 로거 { #flow-log-logger }
 
-### Flow Log 로거 목록 보기
+<a id="list-flow-log-loggers"></a>
+### Flow Log 로거 목록 보기 { #list-flow-log-loggers }
 
 ```
 GET /v2.0/flowlog-loggers
 X-Auth-Token: {tokenId}
 ```
 
+<a id="list-flow-log-loggers-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -40,6 +46,7 @@ X-Auth-Token: {tokenId}
 | customized_file_name | Query | String | - | 조회할 Flow Log 로거의 파일 제목 형식 |
 | status | Query | String | - | 조회할 Flow Log 로거의 상태 |
 
+<a id="list-flow-log-loggers-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -125,13 +132,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### Flow Log 로거 보기
+<a id="view-flow-log-logger"></a>
+### Flow Log 로거 보기 { #view-flow-log-logger }
 
 ```
 GET /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId}
 ```
 
+<a id="view-flow-log-logger-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -141,6 +150,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | flowlogLoggerId | URL | UUID | O | Flow Log 로거 ID |
 
+<a id="view-flow-log-logger-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -201,13 +211,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### Flow Log 로거 생성하기
+<a id="create-flow-log-logger"></a>
+### Flow Log 로거 생성하기 { #create-flow-log-logger }
 
 ```
 POST /v2.0/flowlog-loggers
 X-Auth-Token: {tokenId}
 ```
 
+<a id="create-flow-log-logger-request"></a>
 #### 요청
 
 | 이름 | 종류 | 형식 | 필수 | 설명 |
@@ -256,6 +268,7 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+<a id="create-flow-log-logger-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -316,13 +329,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### Flow Log 로거 수정하기
+<a id="modify-flow-log-logger"></a>
+### Flow Log 로거 수정하기 { #modify-flow-log-logger }
 
 ```
 PUT /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId}
 ```
 
+<a id="modify-flow-log-logger-request"></a>
 #### 요청
 
 | 이름 | 종류 | 형식 | 필수 | 설명 |
@@ -349,6 +364,7 @@ X-Auth-Token: {tokenId}
 
 </details>
 
+<a id="modify-flow-log-logger-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -409,13 +425,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### Flow Log 로거 삭제하기
+<a id="delete-flow-log-logger"></a>
+### Flow Log 로거 삭제하기 { #delete-flow-log-logger }
 
 ```
 DELETE /v2.0/flowlog-loggers/{flowlogLoggerId}
 X-Auth-Token: {tokenId}
 ```
 
+<a id="delete-flow-log-logger-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -425,6 +443,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | flowlogLoggerId | URL | UUID | O | Flow Log 로거 ID |
 
+<a id="delete-flow-log-logger-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -434,19 +453,22 @@ X-Auth-Token: {tokenId}
 <br>
 
 
-## Flow Log 로깅 포트
+<a id="flow-log-logging-port"></a>
+## Flow Log 로깅 포트 { #flow-log-logging-port }
 
 * Flow Log 로깅 포트는 Flow Log 로거가 실질적으로 캡처하는 포트를 의미합니다. Flow Log 로거의 resource\_type이 VPC 또는 Subnet인 경우, 하나의 Flow Log 로거가 여러 개의 Flow Log 로깅 포트를 관리하게 됩니다.
 * 사용자가 로거를 생성 또는 삭제할 때, Flow Log는 내부적으로 해당 로거에 속해 있는 포트를 확인하여 로깅 포트 대상으로 추가 또는 삭제를 수행합니다. 따라서 사용자가 별도로 로깅 포트를 추가/삭제할 필요가 없습니다.
 * Flow Log 로깅 포트는 조회 API만 제공합니다.
 
-### Flow Log 로깅 포트 목록 보기
+<a id="list-flow-log-logging-ports"></a>
+### Flow Log 로깅 포트 목록 보기 { #list-flow-log-logging-ports }
 
 ```
 GET /v2.0/flowlog-logging-ports
 X-Auth-Token: {tokenId}
 ```
 
+<a id="list-flow-log-logging-ports-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -459,6 +481,7 @@ X-Auth-Token: {tokenId}
 | port_id | Query | UUID | - | 조회할 Flow Log 로깅 포트의 포트 ID |
 | network_id | Query | UUID | - | 조회할 Flow Log의 VPC ID |
 
+<a id="list-flow-log-logging-ports-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -505,13 +528,15 @@ X-Auth-Token: {tokenId}
 
 ***
 
-### Flow Log 로깅 포트 보기
+<a id="view-flow-log-logging-port"></a>
+### Flow Log 로깅 포트 보기 { #view-flow-log-logging-port }
 
 ```
 GET /v2.0/flowlog-logging-ports/{flowlogLoggingPortId}
 X-Auth-Token: {tokenId}
 ```
 
+<a id="view-flow-log-logging-port-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -521,6 +546,7 @@ X-Auth-Token: {tokenId}
 | tokenId | Header | String | O | 토큰 ID |
 | flowlogLoggingPortId | URL | UUID | O | Flow Log 로깅 포트 ID |
 
+<a id="view-flow-log-logging-port-response"></a>
 #### 응답
 
 | 이름 | 종류 | 형식 | 설명 |
@@ -555,7 +581,8 @@ X-Auth-Token: {tokenId}
 
 <br><br><br>
 
-## 오류 유형
+<a id="error-type"></a>
+## 오류 유형 { #error-type }
 
 Flow Log를 사용하려는 환경이 올바르게 설정되지 않았다면 오류가 발생할 수 있습니다. 이 경우에는 `flowlog_logger.error_type`을 조회하여 오류 원인을 확인할 수 있습니다.
 

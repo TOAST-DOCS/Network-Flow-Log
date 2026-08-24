@@ -130,9 +130,7 @@ Flow Log 서비스가 패킷을 수집 및 집계하여 사용자에게 제공�
 <a id="important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways"></a>
 ### 피어링 게이트웨이 및 코로케이션 게이트웨이에 플로우 로그를 지정하여 사용 시 유의 사항 { #important-notes-when-using-flow-log-on-peering-gateways-and-colocation-gateways }
 
-* 같은 프로젝트 내 VPC 피어링 게이트웨이는 현재 수집 대상으로 지원하지 않습니다. 수집 대상을 `네트워크 인터페이스` 단위로 지정할 수 없으며, `VPC` 또는 `Subnet` 단위로 플로우 로그를 생성한 경우에도 VPC 피어링 게이트웨이의 네트워크 인터페이스는 수집 대상에서 제외됩니다.
-    * 단, VPC 피어링을 통해 오간 트래픽은 인스턴스의 네트워크 인터페이스에서 수집됩니다.
-* 다른 프로젝트 간 피어링(inter_project_peering), 다른 리전 간 피어링(inter_region_peering) 게이트웨이와 코로케이션 게이트웨이의 네트워크 인터페이스는 수집 대상으로 지원합니다.
+* VPC 피어링 게이트웨이는 현재 지원하지 않습니다.
 * 사용자가 명시적으로 DROP을 설정할 수 있는 서비스가 아니므로, DROP은 지원하지 않습니다.
 * 해당 서비스에 연결된 Flow Log는 **연결 수립 패킷만 수집(connection setup only)** 옵션의 영향을 받지 않으며, 연결 상태와 관계없이 모든 패킷을 수집합니다.
 

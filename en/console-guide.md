@@ -20,7 +20,7 @@ After you click the **Create Flow Log** button, you can set basic information ab
 
 * Collect only connection attempt packets: If checked, packets after the connection is established are not collected. For TCP, packets with the TCP state established are not collected, and for UDP/ICMP, response packets are not collected.
 * Collection Interval: The time interval to sort the collected packets, generate statistics, and create a file in storage. It can be set between 1 minute and 15 minutes. 
-* Collection Item: Select an item to collect. If basic item is selected, only required items are collected and logged in files. More items can be selected in custom items. For supported items, see Statistics Information Items in [Flow Log Overview](/Network/Flow%20Log/en/overview/).
+* Collection Item: Select an item to collect. If basic item is selected, only required items are collected and logged in files. More items can be selected in custom items. For supported items, see Statistics Information Items in [Flow Log Overview](./overview/).
 
 * File Storage Path: Currently, only Object Storage is supported. For **Object Storage**, enter the OBS endpoint, AUTH_tenant, container, and path at once.
     * {OBS_https_endpoint}/{AUTH_OBS_TENANT}/{Container}/{Path}

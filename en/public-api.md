@@ -3,7 +3,7 @@
 <a id="network-flow-log-api-v2-guide"></a>
 ## Network > Flow Log > API v2 Guide { #network-flow-log-api-v2-guide }
 
-The NHN Cloud Network service uses the IaaS token for authentication/authorization when making API calls. The IaaS token is the authentication token used by the NHN Cloud's OpenStack-based infrastructure service (IaaS). For more information on IaaS token issuance and usage, see [IaaS token](/nhncloud/ko/public-api/iaas-token).
+The NHN Cloud Network service uses the IaaS token for authentication/authorization when making API calls. The IaaS token is the authentication token used by the NHN Cloud's OpenStack-based infrastructure service (IaaS). For more information on IaaS token issuance and usage, see [IaaS token](/nhncloud/en/public-api/iaas-token/).
 
 The logger and logging port API uses the `network` type endpoint. To see the exact endpoint, refer to `serviceCatalog` of the token issuance response.
 

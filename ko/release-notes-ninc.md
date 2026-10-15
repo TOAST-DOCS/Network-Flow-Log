@@ -5,7 +5,7 @@
 #### 기능 추가
 
 * Region peering gateway, Project peering gateway, Colocation gateway, 로드 밸런서의 네트워크 인터페이스를 대상으로 Flow Log를 생성할 수 있도록 기능이 추가되었습니다.
-* Public API에 Flow Log DNS 관련 API가 추가되었습니다. [Flow Log API 가이드](/Network/Flow%20Log/ko/public-api-ninc/)를 참고하세요.
+* Public API에 Flow Log 관련 API가 추가되었습니다. [Flow Log API 가이드](/Network/Flow%20Log/ko/public-api-ninc/)를 참고하세요.
 
 #### 기능 개선
 

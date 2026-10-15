@@ -12,4 +12,4 @@
 
 #### 기능 추가
 
-- Public API에 Flow Log DNS 관련 API가 추가되었습니다. [Flow Log API 가이드](/Network/Flow%20Log/ko/public-api-ngoic/)를 참고하세요.
+- Public API에 Flow Log 관련 API가 추가되었습니다. [Flow Log API 가이드](/Network/Flow%20Log/ko/public-api-ngoic/)를 참고하세요.

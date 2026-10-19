@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=5a7fc6be2bc3 -->
+
 ## Network > Flow Log > 릴리스 노트
 
 ### 2026. 08. 25.
